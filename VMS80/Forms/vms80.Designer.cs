@@ -1,0 +1,466 @@
+﻿namespace VMS80
+{
+    partial class MainForm
+    {
+        /// <summary>
+        ///  Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        ///  Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        ///  Required method for Designer support - do not modify
+        ///  the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            textImportFilePath = new TextBox();
+            btnImportFile = new Button();
+            inputSineFreq = new TextBox();
+            radioGenerateFreq = new RadioButton();
+            buttonSimulate = new Button();
+            radioImportAudio = new RadioButton();
+            labelTitle = new Label();
+            labelSineFreq = new Label();
+            labelMinLand = new Label();
+            labelSurfaceFilling = new Label();
+            textBoxMinLand = new TextBox();
+            textBoxSurfaceFilling = new TextBox();
+            panelEllipticalFilter = new Panel();
+            labelEllipticalGain = new Label();
+            labelEllipticalCutOffFrequency = new Label();
+            checkBoxEllipticalFilter = new CheckBox();
+            checkBoxHiFreqLim = new CheckBox();
+            panelHiFreqLim = new Panel();
+            labelHiFreqLimThreshold = new Label();
+            labelHiFreqLimGain = new Label();
+            labelHiFreqLimCutOffFrequency = new Label();
+            checkBoxCompressor = new CheckBox();
+            panelCompressor = new Panel();
+            labelCompressorGain = new Label();
+            labelCompressorThreshold = new Label();
+            textBoxEllipticalCutOffFrequency = new TextBox();
+            textBoxEllipticalCutOffGain = new TextBox();
+            textBoxHiFreqLimiterCutOffFrequency = new TextBox();
+            textBoxHiFreqLimiterGain = new TextBox();
+            textBoxHiFreqLimiterThreshold = new TextBox();
+            textBoxCompressorThreshold = new TextBox();
+            textBoxCompressorGain = new TextBox();
+            panelEllipticalFilter.SuspendLayout();
+            panelHiFreqLim.SuspendLayout();
+            panelCompressor.SuspendLayout();
+            SuspendLayout();
+            // 
+            // textImportFilePath
+            // 
+            textImportFilePath.Font = new Font("Lucida Sans Unicode", 9F, FontStyle.Italic);
+            textImportFilePath.Location = new Point(56, 113);
+            textImportFilePath.Name = "textImportFilePath";
+            textImportFilePath.ReadOnly = true;
+            textImportFilePath.Size = new Size(310, 26);
+            textImportFilePath.TabIndex = 3;
+            textImportFilePath.Text = "no file slected ...";
+            // 
+            // btnImportFile
+            // 
+            btnImportFile.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnImportFile.Location = new Point(372, 112);
+            btnImportFile.Name = "btnImportFile";
+            btnImportFile.Size = new Size(138, 25);
+            btnImportFile.TabIndex = 2;
+            btnImportFile.Text = "Import Wave File";
+            btnImportFile.UseVisualStyleBackColor = true;
+            btnImportFile.Click += btnImportFile_Click;
+            // 
+            // inputSineFreq
+            // 
+            inputSineFreq.Font = new Font("Lucida Sans Unicode", 9F, FontStyle.Italic);
+            inputSineFreq.Location = new Point(757, 111);
+            inputSineFreq.Name = "inputSineFreq";
+            inputSineFreq.Size = new Size(61, 26);
+            inputSineFreq.TabIndex = 4;
+            inputSineFreq.Text = "999.1";
+            inputSineFreq.TextChanged += inputSineFreq_TextChanged;
+            // 
+            // radioGenerateFreq
+            // 
+            radioGenerateFreq.AutoSize = true;
+            radioGenerateFreq.Checked = true;
+            radioGenerateFreq.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic);
+            radioGenerateFreq.ForeColor = Color.White;
+            radioGenerateFreq.Location = new Point(576, 68);
+            radioGenerateFreq.Name = "radioGenerateFreq";
+            radioGenerateFreq.Size = new Size(257, 27);
+            radioGenerateFreq.TabIndex = 5;
+            radioGenerateFreq.TabStop = true;
+            radioGenerateFreq.Text = "Generate Full-Scale Sine";
+            radioGenerateFreq.UseVisualStyleBackColor = true;
+            // 
+            // buttonSimulate
+            // 
+            buttonSimulate.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            buttonSimulate.Location = new Point(30, 547);
+            buttonSimulate.Name = "buttonSimulate";
+            buttonSimulate.Size = new Size(360, 58);
+            buttonSimulate.TabIndex = 3;
+            buttonSimulate.Text = "Simulate";
+            buttonSimulate.UseVisualStyleBackColor = true;
+            buttonSimulate.Click += buttonSimulate_Click;
+            // 
+            // radioImportAudio
+            // 
+            radioImportAudio.AutoSize = true;
+            radioImportAudio.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic);
+            radioImportAudio.ForeColor = Color.White;
+            radioImportAudio.Location = new Point(30, 68);
+            radioImportAudio.Name = "radioImportAudio";
+            radioImportAudio.Size = new Size(237, 27);
+            radioImportAudio.TabIndex = 4;
+            radioImportAudio.Text = "Import Audio WAV File";
+            radioImportAudio.UseVisualStyleBackColor = true;
+            // 
+            // labelTitle
+            // 
+            labelTitle.AutoSize = true;
+            labelTitle.Font = new Font("Lucida Sans Unicode", 20F, FontStyle.Italic);
+            labelTitle.ForeColor = Color.White;
+            labelTitle.Location = new Point(56, 9);
+            labelTitle.Name = "labelTitle";
+            labelTitle.Size = new Size(105, 34);
+            labelTitle.TabIndex = 7;
+            labelTitle.Text = "VMS80";
+            // 
+            // labelSineFreq
+            // 
+            labelSineFreq.AutoSize = true;
+            labelSineFreq.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
+            labelSineFreq.ForeColor = Color.White;
+            labelSineFreq.Location = new Point(603, 116);
+            labelSineFreq.Name = "labelSineFreq";
+            labelSineFreq.Size = new Size(144, 17);
+            labelSineFreq.TabIndex = 8;
+            labelSineFreq.Text = "Sine Frequency (Hz)";
+            // 
+            // labelMinLand
+            // 
+            labelMinLand.AutoSize = true;
+            labelMinLand.ForeColor = Color.White;
+            labelMinLand.Location = new Point(770, 547);
+            labelMinLand.Name = "labelMinLand";
+            labelMinLand.Size = new Size(164, 17);
+            labelMinLand.TabIndex = 9;
+            labelMinLand.Text = "Minimal land achieved:";
+            // 
+            // labelSurfaceFilling
+            // 
+            labelSurfaceFilling.AutoSize = true;
+            labelSurfaceFilling.ForeColor = Color.White;
+            labelSurfaceFilling.Location = new Point(828, 588);
+            labelSurfaceFilling.Name = "labelSurfaceFilling";
+            labelSurfaceFilling.Size = new Size(106, 17);
+            labelSurfaceFilling.TabIndex = 10;
+            labelSurfaceFilling.Text = "Surface filling:";
+            // 
+            // textBoxMinLand
+            // 
+            textBoxMinLand.Location = new Point(976, 544);
+            textBoxMinLand.Name = "textBoxMinLand";
+            textBoxMinLand.ReadOnly = true;
+            textBoxMinLand.Size = new Size(70, 28);
+            textBoxMinLand.TabIndex = 11;
+            // 
+            // textBoxSurfaceFilling
+            // 
+            textBoxSurfaceFilling.Location = new Point(976, 585);
+            textBoxSurfaceFilling.Name = "textBoxSurfaceFilling";
+            textBoxSurfaceFilling.ReadOnly = true;
+            textBoxSurfaceFilling.Size = new Size(70, 28);
+            textBoxSurfaceFilling.TabIndex = 12;
+            // 
+            // panelEllipticalFilter
+            // 
+            panelEllipticalFilter.Controls.Add(textBoxEllipticalCutOffGain);
+            panelEllipticalFilter.Controls.Add(textBoxEllipticalCutOffFrequency);
+            panelEllipticalFilter.Controls.Add(labelEllipticalGain);
+            panelEllipticalFilter.Controls.Add(labelEllipticalCutOffFrequency);
+            panelEllipticalFilter.Location = new Point(12, 192);
+            panelEllipticalFilter.Name = "panelEllipticalFilter";
+            panelEllipticalFilter.Size = new Size(1061, 76);
+            panelEllipticalFilter.TabIndex = 13;
+            // 
+            // labelEllipticalGain
+            // 
+            labelEllipticalGain.AutoSize = true;
+            labelEllipticalGain.ForeColor = Color.White;
+            labelEllipticalGain.Location = new Point(816, 30);
+            labelEllipticalGain.Name = "labelEllipticalGain";
+            labelEllipticalGain.Size = new Size(70, 17);
+            labelEllipticalGain.TabIndex = 1;
+            labelEllipticalGain.Text = "Gain (dB)";
+            // 
+            // labelEllipticalCutOffFrequency
+            // 
+            labelEllipticalCutOffFrequency.AutoSize = true;
+            labelEllipticalCutOffFrequency.ForeColor = Color.White;
+            labelEllipticalCutOffFrequency.Location = new Point(44, 30);
+            labelEllipticalCutOffFrequency.Name = "labelEllipticalCutOffFrequency";
+            labelEllipticalCutOffFrequency.Size = new Size(168, 17);
+            labelEllipticalCutOffFrequency.TabIndex = 0;
+            labelEllipticalCutOffFrequency.Text = "Cut-Off Frequency (Hz)";
+            // 
+            // checkBoxEllipticalFilter
+            // 
+            checkBoxEllipticalFilter.AutoSize = true;
+            checkBoxEllipticalFilter.ForeColor = Color.White;
+            checkBoxEllipticalFilter.Location = new Point(12, 165);
+            checkBoxEllipticalFilter.Name = "checkBoxEllipticalFilter";
+            checkBoxEllipticalFilter.Size = new Size(120, 21);
+            checkBoxEllipticalFilter.TabIndex = 14;
+            checkBoxEllipticalFilter.Text = "Elliptical filter";
+            checkBoxEllipticalFilter.UseVisualStyleBackColor = true;
+            checkBoxEllipticalFilter.CheckedChanged += checkBoxEllipticalFilter_CheckedChanged;
+            // 
+            // checkBoxHiFreqLim
+            // 
+            checkBoxHiFreqLim.AutoSize = true;
+            checkBoxHiFreqLim.ForeColor = Color.White;
+            checkBoxHiFreqLim.Location = new Point(12, 274);
+            checkBoxHiFreqLim.Name = "checkBoxHiFreqLim";
+            checkBoxHiFreqLim.Size = new Size(185, 21);
+            checkBoxHiFreqLim.TabIndex = 16;
+            checkBoxHiFreqLim.Text = "High Frequency Limiter";
+            checkBoxHiFreqLim.UseVisualStyleBackColor = true;
+            checkBoxHiFreqLim.CheckedChanged += checkBoxHiFreqLim_CheckedChanged;
+            // 
+            // panelHiFreqLim
+            // 
+            panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterThreshold);
+            panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterGain);
+            panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterCutOffFrequency);
+            panelHiFreqLim.Controls.Add(labelHiFreqLimThreshold);
+            panelHiFreqLim.Controls.Add(labelHiFreqLimGain);
+            panelHiFreqLim.Controls.Add(labelHiFreqLimCutOffFrequency);
+            panelHiFreqLim.Location = new Point(12, 301);
+            panelHiFreqLim.Name = "panelHiFreqLim";
+            panelHiFreqLim.Size = new Size(1061, 76);
+            panelHiFreqLim.TabIndex = 15;
+            // 
+            // labelHiFreqLimThreshold
+            // 
+            labelHiFreqLimThreshold.AutoSize = true;
+            labelHiFreqLimThreshold.ForeColor = Color.White;
+            labelHiFreqLimThreshold.Location = new Point(432, 35);
+            labelHiFreqLimThreshold.Name = "labelHiFreqLimThreshold";
+            labelHiFreqLimThreshold.Size = new Size(109, 17);
+            labelHiFreqLimThreshold.TabIndex = 4;
+            labelHiFreqLimThreshold.Text = "Threshold (dB)";
+            // 
+            // labelHiFreqLimGain
+            // 
+            labelHiFreqLimGain.AutoSize = true;
+            labelHiFreqLimGain.ForeColor = Color.White;
+            labelHiFreqLimGain.Location = new Point(816, 35);
+            labelHiFreqLimGain.Name = "labelHiFreqLimGain";
+            labelHiFreqLimGain.Size = new Size(70, 17);
+            labelHiFreqLimGain.TabIndex = 3;
+            labelHiFreqLimGain.Text = "Gain (dB)";
+            // 
+            // labelHiFreqLimCutOffFrequency
+            // 
+            labelHiFreqLimCutOffFrequency.AutoSize = true;
+            labelHiFreqLimCutOffFrequency.ForeColor = Color.White;
+            labelHiFreqLimCutOffFrequency.Location = new Point(44, 35);
+            labelHiFreqLimCutOffFrequency.Name = "labelHiFreqLimCutOffFrequency";
+            labelHiFreqLimCutOffFrequency.Size = new Size(168, 17);
+            labelHiFreqLimCutOffFrequency.TabIndex = 2;
+            labelHiFreqLimCutOffFrequency.Text = "Cut-Off Frequency (Hz)";
+            // 
+            // checkBoxCompressor
+            // 
+            checkBoxCompressor.AutoSize = true;
+            checkBoxCompressor.ForeColor = Color.White;
+            checkBoxCompressor.Location = new Point(12, 383);
+            checkBoxCompressor.Name = "checkBoxCompressor";
+            checkBoxCompressor.Size = new Size(111, 21);
+            checkBoxCompressor.TabIndex = 18;
+            checkBoxCompressor.Text = "Compressor";
+            checkBoxCompressor.UseVisualStyleBackColor = true;
+            checkBoxCompressor.CheckedChanged += checkBoxCompressor_CheckedChanged;
+            // 
+            // panelCompressor
+            // 
+            panelCompressor.Controls.Add(textBoxCompressorGain);
+            panelCompressor.Controls.Add(textBoxCompressorThreshold);
+            panelCompressor.Controls.Add(labelCompressorGain);
+            panelCompressor.Controls.Add(labelCompressorThreshold);
+            panelCompressor.Location = new Point(12, 410);
+            panelCompressor.Name = "panelCompressor";
+            panelCompressor.Size = new Size(1061, 76);
+            panelCompressor.TabIndex = 17;
+            // 
+            // labelCompressorGain
+            // 
+            labelCompressorGain.AutoSize = true;
+            labelCompressorGain.ForeColor = Color.White;
+            labelCompressorGain.Location = new Point(816, 30);
+            labelCompressorGain.Name = "labelCompressorGain";
+            labelCompressorGain.Size = new Size(70, 17);
+            labelCompressorGain.TabIndex = 3;
+            labelCompressorGain.Text = "Gain (dB)";
+            // 
+            // labelCompressorThreshold
+            // 
+            labelCompressorThreshold.AutoSize = true;
+            labelCompressorThreshold.ForeColor = Color.White;
+            labelCompressorThreshold.Location = new Point(432, 30);
+            labelCompressorThreshold.Name = "labelCompressorThreshold";
+            labelCompressorThreshold.Size = new Size(109, 17);
+            labelCompressorThreshold.TabIndex = 2;
+            labelCompressorThreshold.Text = "Threshold (dB)";
+            // 
+            // textBoxEllipticalCutOffFrequency
+            // 
+            textBoxEllipticalCutOffFrequency.Location = new Point(225, 27);
+            textBoxEllipticalCutOffFrequency.Name = "textBoxEllipticalCutOffFrequency";
+            textBoxEllipticalCutOffFrequency.Size = new Size(100, 28);
+            textBoxEllipticalCutOffFrequency.TabIndex = 2;
+            textBoxEllipticalCutOffFrequency.TextChanged += textBoxEllipticalCutOffFrequency_TextChanged;
+            // 
+            // textBoxEllipticalCutOffGain
+            // 
+            textBoxEllipticalCutOffGain.Location = new Point(905, 27);
+            textBoxEllipticalCutOffGain.Name = "textBoxEllipticalCutOffGain";
+            textBoxEllipticalCutOffGain.Size = new Size(100, 28);
+            textBoxEllipticalCutOffGain.TabIndex = 3;
+            textBoxEllipticalCutOffGain.TextChanged += textBoxEllipticalCutOffGain_TextChanged;
+            // 
+            // textBoxHiFreqLimiterCutOffFrequency
+            // 
+            textBoxHiFreqLimiterCutOffFrequency.Location = new Point(225, 32);
+            textBoxHiFreqLimiterCutOffFrequency.Name = "textBoxHiFreqLimiterCutOffFrequency";
+            textBoxHiFreqLimiterCutOffFrequency.Size = new Size(100, 28);
+            textBoxHiFreqLimiterCutOffFrequency.TabIndex = 19;
+            textBoxHiFreqLimiterCutOffFrequency.TextChanged += textBoxHiFreqLimiterCutOffFrequency_TextChanged;
+            // 
+            // textBoxHiFreqLimiterGain
+            // 
+            textBoxHiFreqLimiterGain.Location = new Point(905, 32);
+            textBoxHiFreqLimiterGain.Name = "textBoxHiFreqLimiterGain";
+            textBoxHiFreqLimiterGain.Size = new Size(100, 28);
+            textBoxHiFreqLimiterGain.TabIndex = 4;
+            textBoxHiFreqLimiterGain.TextChanged += textBoxHiFreqLimiterGain_TextChanged;
+            // 
+            // textBoxHiFreqLimiterThreshold
+            // 
+            textBoxHiFreqLimiterThreshold.Location = new Point(564, 32);
+            textBoxHiFreqLimiterThreshold.Name = "textBoxHiFreqLimiterThreshold";
+            textBoxHiFreqLimiterThreshold.Size = new Size(100, 28);
+            textBoxHiFreqLimiterThreshold.TabIndex = 19;
+            textBoxHiFreqLimiterThreshold.TextChanged += textBoxHiFreqLimiterThreshold_TextChanged;
+            // 
+            // textBoxCompressorThreshold
+            // 
+            textBoxCompressorThreshold.Location = new Point(564, 27);
+            textBoxCompressorThreshold.Name = "textBoxCompressorThreshold";
+            textBoxCompressorThreshold.Size = new Size(100, 28);
+            textBoxCompressorThreshold.TabIndex = 4;
+            textBoxCompressorThreshold.TextChanged += textBoxCompressorThreshold_TextChanged;
+            // 
+            // textBoxCompressorGain
+            // 
+            textBoxCompressorGain.Location = new Point(905, 27);
+            textBoxCompressorGain.Name = "textBoxCompressorGain";
+            textBoxCompressorGain.Size = new Size(100, 28);
+            textBoxCompressorGain.TabIndex = 19;
+            textBoxCompressorGain.TextChanged += textBoxCompressorGain_TextChanged;
+            // 
+            // MainForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 16F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(64, 64, 64);
+            ClientSize = new Size(1085, 650);
+            Controls.Add(checkBoxCompressor);
+            Controls.Add(panelCompressor);
+            Controls.Add(checkBoxHiFreqLim);
+            Controls.Add(panelHiFreqLim);
+            Controls.Add(checkBoxEllipticalFilter);
+            Controls.Add(panelEllipticalFilter);
+            Controls.Add(textBoxSurfaceFilling);
+            Controls.Add(textBoxMinLand);
+            Controls.Add(labelSurfaceFilling);
+            Controls.Add(labelMinLand);
+            Controls.Add(labelSineFreq);
+            Controls.Add(labelTitle);
+            Controls.Add(inputSineFreq);
+            Controls.Add(radioGenerateFreq);
+            Controls.Add(btnImportFile);
+            Controls.Add(textImportFilePath);
+            Controls.Add(radioImportAudio);
+            Controls.Add(buttonSimulate);
+            Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
+            Name = "MainForm";
+            Text = "VMS80";
+            Load += MainForm_Load;
+            panelEllipticalFilter.ResumeLayout(false);
+            panelEllipticalFilter.PerformLayout();
+            panelHiFreqLim.ResumeLayout(false);
+            panelHiFreqLim.PerformLayout();
+            panelCompressor.ResumeLayout(false);
+            panelCompressor.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private TextBox title;
+        private Button btnImportFile;
+        private TextBox textImportFilePath;
+        private TextBox inputSineFreq;
+        private TextBox textSineFreq;
+        private RadioButton radioGenerateFreq;
+        private Button buttonSimulate;
+        private RadioButton radioImportAudio;
+        private Label labelTitle;
+        private Label labelSineFreq;
+        private Label labelMinLand;
+        private Label labelSurfaceFilling;
+        private TextBox textBoxMinLand;
+        private TextBox textBoxSurfaceFilling;
+        private Panel panelEllipticalFilter;
+        private CheckBox checkBoxEllipticalFilter;
+        private CheckBox checkBoxHiFreqLim;
+        private Panel panelHiFreqLim;
+        private CheckBox checkBoxCompressor;
+        private Panel panelCompressor;
+        private Label labelEllipticalGain;
+        private Label labelEllipticalCutOffFrequency;
+        private Label labelCompressorGain;
+        private Label labelCompressorThreshold;
+        private Label labelHiFreqLimThreshold;
+        private Label labelHiFreqLimGain;
+        private Label labelHiFreqLimCutOffFrequency;
+        private TextBox textBoxEllipticalCutOffGain;
+        private TextBox textBoxEllipticalCutOffFrequency;
+        private TextBox textBoxHiFreqLimiterThreshold;
+        private TextBox textBoxHiFreqLimiterGain;
+        private TextBox textBoxHiFreqLimiterCutOffFrequency;
+        private TextBox textBoxCompressorGain;
+        private TextBox textBoxCompressorThreshold;
+    }
+}
