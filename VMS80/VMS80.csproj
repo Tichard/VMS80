@@ -10,11 +10,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DynamicLanguageRuntime" Version="1.3.5" />
-    <PackageReference Include="IronPython" Version="3.4.2" />
-    <PackageReference Include="pythonnet" Version="3.0.5" />
-    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
-    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
+    <COMReference Include="mscoree">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>5477469e-83b1-11d2-8b49-00a0c9b7c9c4</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MSScriptControl">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>0e59f1d2-1fbe-11d0-8ff2-00a0d10038bc</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Scripting">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>420b2830-e718-11cf-893d-00a0c9054228</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
 
   <ItemGroup>

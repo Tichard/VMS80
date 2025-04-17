@@ -1,5 +1,4 @@
-﻿using Microsoft.Scripting.Hosting;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace VMS80
 {
