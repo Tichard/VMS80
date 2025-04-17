@@ -1,8 +1,9 @@
 # Project temp
 .vs
 
-Python/*.data
-
-# auto-generated dir
+# auto-generated compilation dir
 VMS80/obj
 VMS80/bin
+
+# Simulation file
+*.data
