@@ -284,30 +284,30 @@ namespace VMS80
 
                     if (index > 0) // if "=" is in the line
                     {
-                        string key = line.Substring(0, index - 1);
+                        string key = line.Substring(0, index);
                         string value = line.Substring(index + 1);
 
                         switch (key)
                         {
                             case "r_start":
                                 vinyl_start = int.Parse(value);
-                                Console.WriteLine(vinyl_start);
+                                Debug.WriteLine(vinyl_start);
                                 break;
                             case "r_stop":
                                 vinyl_stop = int.Parse(value);
-                                Console.WriteLine(vinyl_stop);
+                                Debug.WriteLine(vinyl_stop);
                                 break;
                             case "groove_fullscale":
                                 groove_fullscale = int.Parse(value);
-                                Console.WriteLine(groove_fullscale);
+                                Debug.WriteLine(groove_fullscale);
                                 break;
                             case "stylus_width":
                                 stylus_width = int.Parse(value);
-                                Console.WriteLine(stylus_width);
+                                Debug.WriteLine(stylus_width);
                                 break;
                             case "stylus_angle":
                                 stylus_angle = int.Parse(value);
-                                Console.WriteLine(stylus_angle);
+                                Debug.WriteLine(stylus_angle);
                                 break;
 
                             default:
