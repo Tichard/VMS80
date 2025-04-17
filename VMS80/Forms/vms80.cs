@@ -127,6 +127,7 @@ namespace VMS80
             textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
 
             m_simulator.plot();
+            m_simulator.clear_results();
         }
 
         private void checkBoxEllipticalFilter_CheckedChanged(object sender, EventArgs e)

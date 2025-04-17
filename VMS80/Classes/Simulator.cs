@@ -231,10 +231,9 @@ namespace VMS80
 
                 for (Int64 idx = 0; idx < a_nb_samples; ++idx)
                 {
-                    current_pitch = a_pitch[idx];
-                    r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
+                    r = (r_start - a_pitch[idx]) / 1000000.0; // actual pitch radius in meter
                     revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                    revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
+                    revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
 
                     outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
                                         + a_pitch[idx] + " " + a_groove[2 * idx] + " " + a_groove[2 * idx + 1] + " "
@@ -269,6 +268,11 @@ namespace VMS80
             python.StartInfo.CreateNoWindow = true; //not diplay a windows
             python.Start();
             python.WaitForExit();
+        }
+
+        public void clear_results()
+        {
+            File.Delete(WORKSPACE + "Python\\pitch.data");
         }
 
         private void read_config()
