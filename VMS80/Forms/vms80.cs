@@ -13,7 +13,6 @@ namespace VMS80
         private double m_gen_frequency;
         private int m_samplerate;
 
-
         public MainForm()
         {
             InitializeComponent();
@@ -23,7 +22,7 @@ namespace VMS80
 
             // Default values
             m_samplerate = 48000;
-            m_gen_frequency = 999.1;
+            m_gen_frequency = 99.89; // Kissing groove
             m_filepath = "";
 
             // Sync form plugins panels
@@ -35,13 +34,12 @@ namespace VMS80
             panelCompressor.Enabled = checkBoxCompressor.Checked;
 
             inputSineFreq.Text = m_gen_frequency.ToString();
-
         }
 
         public void simulate()
         {
-            int the_samplerate = m_samplerate / 100;
-            int the_nb_samples = 100000;
+            int the_samplerate = m_samplerate;
+            int the_nb_samples = 1000000;
             int the_nb_channels = 2;
 
             m_simulator.set_samplerate(the_samplerate);
@@ -78,8 +76,7 @@ namespace VMS80
             m_simulator.compute_land(a_land, a_pitch, a_groove, the_nb_samples);
 
             // Write data to file so python can plot it
-            m_simulator.export_to_python(the_data, a_pitch, a_groove, a_raw, a_land, the_nb_samples);
-
+            m_simulator.export_results(the_data, a_pitch, a_groove, a_raw, a_land, the_nb_samples);
         }
 
         private void generate_sinewave(double[] a_data, int a_nb_samples, int a_nb_channels)
@@ -124,17 +121,16 @@ namespace VMS80
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("--- Simuation start ---\n");
-
             simulate();
 
             textBoxMinLand.Text = m_simulator.get_minimal_land().ToString("0.00um");
             textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
+
+            m_simulator.plot();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void checkBoxEllipticalFilter_CheckedChanged(object sender, EventArgs e)

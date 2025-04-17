@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 import os
+import math
 import matplotlib.pyplot as plt
  
 # Select Display
 DISPLAY_PITCH = 0
-DISPLAY_ERR = 0
+DISPLAY_ERR = 1
 DISPLAY_POLAR = 1
 
 audio_array = []
 groove_array = []
 pitch_array = []
 raw_array = []
-polar_array = []
 land_array = []
+inner_x_array = []
+outer_x_array = []
+inner_y_array = []
+outer_y_array = []
 
 the_filename = os.path.join(os.path.dirname(__file__),"pitch.data")
 
@@ -35,13 +39,20 @@ for the_line in the_lines:
 	polar = float(the_line[6])
 	land = float(the_line[7])
 
+	outer_groove = start - pitch - outer
+	inner_groove = start - pitch - inner
+
 	audio_array.append([data_l, data_r])
-	groove_array.append([start - pitch-outer, start-pitch-inner])
+	groove_array.append([outer_groove, inner_groove])
 	pitch_array.append(pitch)
 	raw_array.append(raw)
-	polar_array.append(polar)
 	land_array.append(land)
 
+	# Recreate polar project to be zoomable
+	inner_x_array.append(inner_groove * math.cos(polar))
+	inner_y_array.append(inner_groove * math.sin(polar))
+	outer_x_array.append(outer_groove * math.cos(polar))
+	outer_y_array.append(outer_groove * math.sin(polar))
 
 if DISPLAY_PITCH :
 	plt.figure(1)
@@ -62,8 +73,10 @@ if DISPLAY_ERR :
 	plt.plot(land_array[0:-revolution_len])
 
 if DISPLAY_POLAR :
-	# plt.figure(3)
-	plt.subplots(subplot_kw={'projection': 'polar'}),
-	plt.plot(polar_array, groove_array)
+	plt.figure(3)
+	plt.plot(inner_x_array, inner_y_array)
+	plt.plot(outer_x_array, outer_y_array)
 
 plt.show()
+
+print("DONE")

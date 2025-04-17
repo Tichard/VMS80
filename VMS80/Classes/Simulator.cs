@@ -1,14 +1,5 @@
-﻿using System.Diagnostics;
-using IronPython.Hosting;
-using IronPython.Runtime;
-using Microsoft.Scripting.Hosting;
-using System;
-using IronPython;
-using Microsoft.Scripting;
-using Windows.Web.AtomPub;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Diagnostics.Metrics;
-
+﻿using Microsoft.Scripting.Hosting;
+using System.Diagnostics;
 
 namespace VMS80
 {
@@ -33,6 +24,8 @@ namespace VMS80
         private double m_min_land;
 
         private string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
+
+        private Int64 N = 0;
 
         public Simulator()
         {
@@ -100,7 +93,7 @@ namespace VMS80
             {
                 r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
                 revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                revolution_len = (Int64)Math.Round((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
+                revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
 
                 if (revolution_len + idx < a_nb_samples - 1)
                 {
@@ -177,7 +170,7 @@ namespace VMS80
 
             r = r_start / 1000000.0; // actual pitch radius in meter
             double revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-            Int64 revolution_len = (Int64)Math.Round((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
+            Int64 revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
             Int64 idx = 0;
 
             Int64 window_len = Math.Min(m_computed_samples, a_nb_samples - revolution_len);
@@ -193,7 +186,7 @@ namespace VMS80
             {
                 r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
                 revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                revolution_len = (Int64)Math.Round((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
+                revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
 
                 current_pitch = a_pitch[idx + revolution_len];
                 current_rev = current_pitch + a_groove[2 * (idx + revolution_len)];
@@ -220,8 +213,7 @@ namespace VMS80
             m_samplerate = a_samplerate;
         }
 
-
-        public void export_to_python(double[] a_data, double[] a_pitch, double[] a_groove, double[] a_raw, double[] a_land, int a_nb_samples)
+        public void export_results(double[] a_data, double[] a_pitch, double[] a_groove, double[] a_raw, double[] a_land, int a_nb_samples)
         {
             double r_start = vinyl_start * 1000;
             //double current_inner, current_outer, prev_inner, prev_outer;
@@ -230,10 +222,10 @@ namespace VMS80
 
             double r = r_start / 1000000.0; // actual pitch radius in meter
             double revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-            Int64 revolution_len = (Int64)Math.Round((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
+            Int64 revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
             double current_pitch = 0;
 
-            using (StreamWriter outputFile = new StreamWriter(WORKSPACE + "Python\\picth.data"))
+            using (StreamWriter outputFile = new StreamWriter(WORKSPACE + "Python\\pitch.data"))
             {
                 // First line is initial revolution len
                 outputFile.WriteLine(r_start + " " + revolution_len);
@@ -243,7 +235,7 @@ namespace VMS80
                     current_pitch = a_pitch[idx];
                     r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
                     revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                    revolution_len = (Int64)Math.Round((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
+                    revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
 
                     outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
                                         + a_pitch[idx] + " " + a_groove[2 * idx] + " " + a_groove[2 * idx + 1] + " "
@@ -267,6 +259,18 @@ namespace VMS80
             }
         }
 
+        public void plot() { 
+            // Execute Python script that will read the file
+            Process python = new Process();
+            python.StartInfo.FileName = @"python ";
+            python.StartInfo.Arguments = WORKSPACE + "Python\\plot.py";
+            python.StartInfo.UseShellExecute = false;
+            python.StartInfo.RedirectStandardOutput = false;
+            python.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+            python.StartInfo.CreateNoWindow = true; //not diplay a windows
+            python.Start();
+            python.WaitForExit();
+        }
 
         private void read_config()
         {
@@ -317,7 +321,6 @@ namespace VMS80
             {
                 Console.WriteLine("ERR CONFIG : Config file could not be parsed : \n" + e.Message + "\n Please check USER_SETTINGS file\n");
             }
-
         }
     }
 

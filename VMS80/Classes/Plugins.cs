@@ -26,13 +26,6 @@ namespace VMS80
 
         public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
         {
-            
-            for (Int64 i = (Int64)(a_nb_samples * 0.2); i < (Int64)(a_nb_samples * 0.5); ++i)
-            {
-                a_data[2 * i + 0] *= 0.3;
-                a_data[2 * i + 1] *= 0.3;
-            }
-            
             if (m_elliptical_filter_enable)
             {
                 m_elliptical_filter.process(a_data, a_nb_samples, a_nb_channels);

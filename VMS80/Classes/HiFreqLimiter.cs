@@ -11,12 +11,10 @@ namespace VMS80
 
         public HiFreqLimiter()
         {
-
         }
 
         public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
         {
-
         }
 
         public double get_threshold()

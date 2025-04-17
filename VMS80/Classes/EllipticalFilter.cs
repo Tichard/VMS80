@@ -9,12 +9,10 @@ namespace VMS80
 
         public EllipticalFilter()
         {
-
         }
 
         public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
         {
-
         }
 
         public int get_cutoff_frequency()
