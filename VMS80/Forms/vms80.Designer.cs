@@ -415,7 +415,6 @@
             Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
             Name = "MainForm";
             Text = "VMS80";
-            Load += MainForm_Load;
             panelEllipticalFilter.ResumeLayout(false);
             panelEllipticalFilter.PerformLayout();
             panelHiFreqLim.ResumeLayout(false);

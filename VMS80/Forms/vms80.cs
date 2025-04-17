@@ -33,7 +33,7 @@ namespace VMS80
             m_plugins.m_compressor_enable = checkBoxCompressor.Checked = m_plugins.m_compressor_enable;
             panelCompressor.Enabled = checkBoxCompressor.Checked;
 
-            inputSineFreq.Text = m_gen_frequency.ToString();
+            inputSineFreq.Text = m_gen_frequency.ToString(CultureInfo.InvariantCulture);
         }
 
         public void simulate()
@@ -127,10 +127,6 @@ namespace VMS80
             textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
 
             m_simulator.plot();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
         }
 
         private void checkBoxEllipticalFilter_CheckedChanged(object sender, EventArgs e)
