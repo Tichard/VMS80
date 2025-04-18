@@ -5,6 +5,7 @@ namespace VMS80
 {
     public partial class MainForm : Form
     {
+        private AudioReader m_audio_reader;
         private Plugins m_plugins;
         private Simulator m_simulator;
 
@@ -17,6 +18,7 @@ namespace VMS80
         {
             InitializeComponent();
 
+            m_audio_reader = new AudioReader();
             m_plugins = new Plugins();
             m_simulator = new Simulator();
 
@@ -48,13 +50,11 @@ namespace VMS80
 
             if (radioGenerateFreq.Checked)
             {
-                the_data = new float[the_nb_samples * the_nb_channels];
-                generate_sinewave(the_data, the_nb_samples, the_nb_channels);
+                generate_sinewave(out the_data, the_nb_samples, the_nb_channels);
             }
             else
             {
-                the_data = new float[the_nb_samples * the_nb_channels];
-                // read wavefile
+                m_audio_reader.read_wav_from_file(m_filepath, out the_data, out the_nb_samples, out the_nb_channels);
             }
 
             if (the_nb_channels > 2)
@@ -79,8 +79,9 @@ namespace VMS80
             m_simulator.export_results(the_data, a_pitch, a_groove, a_raw, a_land, the_nb_samples);
         }
 
-        private void generate_sinewave(float[] a_data, int a_nb_samples, int a_nb_channels)
+        private void generate_sinewave(out float[] a_data, int a_nb_samples, int a_nb_channels)
         {
+            a_data = new float[a_nb_samples * a_nb_channels];
             float the_smaplerate = m_samplerate;
             float the_gen_frequency = float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
             Debug.WriteLine("Generating " + the_gen_frequency + "Hz frequency");
@@ -108,11 +109,11 @@ namespace VMS80
 
             file.InitialDirectory = "c:\\";
             file.Filter = "wav files (*.wav)|*.wav";
-            file.RestoreDirectory = false;
+            file.RestoreDirectory = true;
             if (file.ShowDialog() == DialogResult.OK)
             {
                 //Get the path of specified file
-                string m_filepath = file.FileName;
+                m_filepath = file.FileName;
                 textImportFilePath.Text = m_filepath;
             }
         }
