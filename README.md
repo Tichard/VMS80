@@ -34,10 +34,10 @@ This needs Python to be installed with matplotlib on the machine.
 - [AudioReader.cs](VMS80/Classes/AudioReader.cs) : Import audio file.
  
 ### *Forms* - source forms files
-- VMS80.cs : Main Windows Form of the executable.
+- [VMS80.cs](VMS80/Forms/vms80.cs) : Main Windows Form of the executable.
 
 ### *Python* - source Pyhton scripts
-- Plot.py : Parse the data file and plot the simulation results.
+- [Plot.py](VMS80/Python/plot.py) : Parse the data file and plot the simulation results.
 
 ## Future steps
 
