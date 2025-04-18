@@ -5,36 +5,36 @@ namespace VMS80
 {
     internal class Compressor
     {
-        private double m_threshold;
-        private double m_gain;
-        private double m_gain_reduction;
+        private float m_threshold;
+        private float m_gain;
+        private float m_gain_reduction;
 
         public Compressor()
         {
         }
 
-        public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
+        public void process(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
         }
 
-        public double get_threshold()
+        public float get_threshold()
         {
             return m_threshold;
         }
-        public void set_threshold(double a_threshold)
+        public void set_threshold(float a_threshold)
         {
             m_threshold = a_threshold;
         }
 
-        public double get_gain()
+        public float get_gain()
         {
             return m_gain;
         }
-        public void set_gain(double a_gain)
+        public void set_gain(float a_gain)
         {
             m_gain = a_gain;
         }
-        public double get_gain_reduction()
+        public float get_gain_reduction()
         {
             return m_gain_reduction;
         }

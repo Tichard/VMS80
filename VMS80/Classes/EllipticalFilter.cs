@@ -5,13 +5,13 @@ namespace VMS80
     internal class EllipticalFilter
     {
         private int m_cutoff_frequency;
-        private double m_gain;
+        private float m_gain;
 
         public EllipticalFilter()
         {
         }
 
-        public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
+        public void process(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
         }
 
@@ -24,11 +24,11 @@ namespace VMS80
             m_cutoff_frequency = a_cutoff_frequency;
         }
 
-        public double get_gain()
+        public float get_gain()
         {
             return m_gain;
         }
-        public void set_gain(double a_gain)
+        public void set_gain(float a_gain)
         {
             m_gain = a_gain;
         }

@@ -10,7 +10,7 @@ namespace VMS80
 
         private string m_filepath;
 
-        private double m_gen_frequency;
+        private float m_gen_frequency;
         private int m_samplerate;
 
         public MainForm()
@@ -22,7 +22,7 @@ namespace VMS80
 
             // Default values
             m_samplerate = 48000;
-            m_gen_frequency = 99.89; // Kissing groove
+            m_gen_frequency = 100; // Perfectly fitted groove
             m_filepath = "";
 
             // Sync form plugins panels
@@ -44,28 +44,28 @@ namespace VMS80
 
             m_simulator.set_samplerate(the_samplerate);
 
-            double[] the_data;
+            float[] the_data;
 
             if (radioGenerateFreq.Checked)
             {
-                the_data = new double[the_nb_samples * the_nb_channels];
+                the_data = new float[the_nb_samples * the_nb_channels];
                 generate_sinewave(the_data, the_nb_samples, the_nb_channels);
             }
             else
             {
-                the_data = new double[the_nb_samples * the_nb_channels];
+                the_data = new float[the_nb_samples * the_nb_channels];
                 // read wavefile
             }
 
             if (the_nb_channels > 2)
             {
-                Console.WriteLine("Unsupported number of channels\n");
+                Debug.WriteLine("Unsupported number of channels\n");
             }
 
-            double[] a_groove = new double[2 * the_nb_samples];
-            double[] a_pitch = new double[the_nb_samples];
-            double[] a_raw = new double[the_nb_samples];
-            double[] a_land = new double[the_nb_samples];
+            float[] a_groove = new float[2 * the_nb_samples];
+            float[] a_pitch = new float[the_nb_samples];
+            float[] a_raw = new float[the_nb_samples];
+            float[] a_land = new float[the_nb_samples];
 
             // process the signal
             m_plugins.process(the_data, the_nb_samples, the_nb_channels);
@@ -79,23 +79,25 @@ namespace VMS80
             m_simulator.export_results(the_data, a_pitch, a_groove, a_raw, a_land, the_nb_samples);
         }
 
-        private void generate_sinewave(double[] a_data, int a_nb_samples, int a_nb_channels)
+        private void generate_sinewave(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
-            double the_smaplerate = m_samplerate;
-            double the_gen_frequency = double.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
+            float the_smaplerate = m_samplerate;
+            float the_gen_frequency = float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
+            Debug.WriteLine("Generating " + the_gen_frequency + "Hz frequency");
+
             if (a_nb_channels == 2)
             {
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_data[2 * i + 0] = Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
-                    a_data[2 * i + 1] = Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
+                    a_data[2 * i + 0] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
+                    a_data[2 * i + 1] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
                 }
             }
             else
             {
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_data[i] = Math.Sin(2.0 * Math.PI * the_gen_frequency * i / m_samplerate);
+                    a_data[i] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / m_samplerate);
                 }
             }
         }
@@ -155,7 +157,7 @@ namespace VMS80
 
         private void textBoxEllipticalCutOffGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_elliptical_filter.set_gain(double.Parse(textBoxEllipticalCutOffGain.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_elliptical_filter.set_gain(float.Parse(textBoxEllipticalCutOffGain.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxHiFreqLimiterCutOffFrequency_TextChanged(object sender, EventArgs e)
@@ -165,22 +167,22 @@ namespace VMS80
 
         private void textBoxHiFreqLimiterThreshold_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter.set_threshold(double.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_hi_freq_liniter.set_threshold(float.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxHiFreqLimiterGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter.set_gain(double.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_hi_freq_liniter.set_gain(float.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxCompressorThreshold_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_compressor.set_threshold(double.Parse(textBoxCompressorThreshold.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_compressor.set_threshold(float.Parse(textBoxCompressorThreshold.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxCompressorGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_compressor.set_gain(double.Parse(textBoxCompressorGain.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_compressor.set_gain(float.Parse(textBoxCompressorGain.Text, CultureInfo.InvariantCulture));
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace VMS80
+﻿namespace VMS80
 {
     internal class Plugins
     {
@@ -24,7 +21,7 @@ namespace VMS80
             m_compressor_enable = false;
         }
 
-        public void process(double[] a_data, int a_nb_samples, int a_nb_channels)
+        public void process(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
             if (m_elliptical_filter_enable)
             {
