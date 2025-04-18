@@ -1,6 +1,6 @@
 # VMS80
 
-VMS80-Style Cutting lathe Simulator project
+VMS80-Style Cutting lathe Simulator project.
 
 ## Description
 
@@ -26,11 +26,12 @@ This needs Python to be installed with matplotlib on the machine.
 ## Structure
 
 ### *Classes* - source code files
-- Simulator.cs : Computes the pitch-control for the given audio based on the config file.
-- Plugin.cs : Controls and apply audio plugins.
-    - EllipticalFilter.cs : #TODO
-    - HiFreqLimiter.cs : #TODO
-    - Compressor.cs : #TODO
+- [Simulator.cs](VMS80/Classes/Simulator.cs) : Computes the pitch-control for the given audio based on the config file.
+- [Plugin.cs](VMS80/Classes/Plugins.cs) : Controls and apply audio plugins.
+    - [EllipticalFilter.cs](VMS80/Classes/EllipticalFilter.cs) : #TODO
+    - [HiFreqLimiter.cs](VMS80/Classes/HiFreqLimiter.cs) : #TODO
+    - [Compressor.cs](VMS80/Classes/Compressor.cs) : #TODO
+- [AudioReader.cs](VMS80/Classes/AudioReader.cs) : Import audio file.
  
 ### *Forms* - source forms files
 - VMS80.cs : Main Windows Form of the executable.
