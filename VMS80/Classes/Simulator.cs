@@ -16,15 +16,13 @@ namespace VMS80
         private int land;
         private double gain;
 
-        private int m_samplerate;
+        private Int64 m_samples_per_revolution;
 
         private double m_computed_filling;
         private Int64 m_computed_samples;
         private double m_min_land;
 
         private string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
-
-        private Int64 N = 0;
 
         public Simulator()
         {
@@ -38,8 +36,6 @@ namespace VMS80
             spin_speed = 100.0/180.0; // 33.3rpm in seconds
             land = 10; // um
             gain = 1;
-
-            m_samplerate = 48000;
 
             read_config();
         }
@@ -71,10 +67,6 @@ namespace VMS80
         {
             double r_start = vinyl_start * 1000;
             double r_stop = vinyl_stop * 1000;
-            double r;
-
-            double revolution;
-            Int64 revolution_len;
 
             double current_pitch = 0;
             double peak = 0;
@@ -90,13 +82,9 @@ namespace VMS80
 
             while (((r_start - current_pitch) > r_stop) && (idx < a_nb_samples - 1))
             {
-                r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
-                revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
-
-                if (revolution_len + idx < a_nb_samples - 1)
+                if (m_samples_per_revolution + idx < a_nb_samples - 1)
                 {
-                    current_rev = current_pitch + a_groove[2 * (revolution_len + idx)];
+                    current_rev = current_pitch + a_groove[2 * (m_samples_per_revolution + idx)];
                     prev_rev = a_pitch[idx] + a_groove[2 * idx + 1];
                 }
                 else
@@ -113,7 +101,7 @@ namespace VMS80
                     current_pitch += (land - margin); // add what's missing
 
                     // interpolate if line from here to current_pitch will cross under peak
-                    double next_peak = ((current_pitch - a_pitch[idx]) / revolution_len) * (peak_idx - idx) + a_pitch[idx];
+                    double next_peak = ((current_pitch - a_pitch[idx]) / m_samples_per_revolution) * (peak_idx - idx) + a_pitch[idx];
 
                     // Target peak if straight line doesn't go under peak_pitch
                     if (next_peak >= peak_pitch)
@@ -137,13 +125,13 @@ namespace VMS80
                     }
 
                     peak_pitch = current_pitch;
-                    peak_idx = idx + revolution_len;
+                    peak_idx = idx + m_samples_per_revolution;
 
                 }
-                if (revolution_len + idx < a_nb_samples - 1)
+                if (m_samples_per_revolution + idx < a_nb_samples - 1)
                 {
-                    a_pitch[revolution_len + idx] = current_pitch;
-                    a_raw[revolution_len + idx] = current_pitch;
+                    a_pitch[m_samples_per_revolution + idx] = current_pitch;
+                    a_raw[m_samples_per_revolution + idx] = current_pitch;
                 }
 
                 // Smooth the pitch control
@@ -165,14 +153,9 @@ namespace VMS80
         {
             double r_start = vinyl_start * 1000;
             double r_stop = vinyl_stop * 1000;
-            double r;
-
-            r = r_start / 1000000.0; // actual pitch radius in meter
-            double revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-            Int64 revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
             Int64 idx = 0;
 
-            Int64 window_len = Math.Min(m_computed_samples, a_nb_samples - revolution_len);
+            Int64 window_len = Math.Min(m_computed_samples, a_nb_samples - m_samples_per_revolution);
 
             double current_pitch = 0;
             double current_rev = 0;
@@ -183,12 +166,8 @@ namespace VMS80
 
             while (idx < window_len - 1)
             {
-                r = (r_start - current_pitch) / 1000000.0; // actual pitch radius in meter
-                revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
-
-                current_pitch = a_pitch[idx + revolution_len];
-                current_rev = current_pitch + a_groove[2 * (idx + revolution_len)];
+                current_pitch = a_pitch[idx + m_samples_per_revolution];
+                current_rev = current_pitch + a_groove[2 * (idx + m_samples_per_revolution)];
                 prev_rev = a_pitch[idx] + a_groove[2 * idx + 1];
                 land = current_rev - prev_rev;
 
@@ -209,7 +188,10 @@ namespace VMS80
 
         public void set_samplerate(int a_samplerate)
         {
-            m_samplerate = a_samplerate;
+            // Because spin speed is constant, a rotation at every radius has the exact same duration
+            // Ex : 33.33rpm => 0.03min/revolution = 1.8sec/revolution
+            // -> each revolution lasts (1/spin_speed) seconds so has (a_samplerate / spin_speed) samples
+            m_samples_per_revolution = (Int64)(a_samplerate / spin_speed);
         }
 
         public void export_results(double[] a_data, double[] a_pitch, double[] a_groove, double[] a_raw, double[] a_land, int a_nb_samples)
@@ -219,34 +201,25 @@ namespace VMS80
             //Int64 current_idx, prev_idx;
             double polar_idx = 0;
 
-            double r = r_start / 1000000.0; // actual pitch radius in meter
-            double revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-            Int64 revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate) + N; // number of sample on the current revolution
-            double current_pitch = 0;
-
             using (StreamWriter outputFile = new StreamWriter(WORKSPACE + "Python\\pitch.data"))
             {
                 // First line is initial revolution len
-                outputFile.WriteLine(r_start + " " + revolution_len);
+                outputFile.WriteLine(r_start + " " + m_samples_per_revolution);
 
                 for (Int64 idx = 0; idx < a_nb_samples; ++idx)
                 {
-                    r = (r_start - a_pitch[idx]) / 1000000.0; // actual pitch radius in meter
-                    revolution = (2.0 * Math.PI * r); // circular length of a current revolution
-                    revolution_len = (Int64)Math.Floor((revolution / (spin_speed * r)) * (double)m_samplerate); // number of sample on the current revolution
-
                     outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
                                         + a_pitch[idx] + " " + a_groove[2 * idx] + " " + a_groove[2 * idx + 1] + " "
                                         + a_raw[idx] + " " + polar_idx + " " + a_land[idx]);
 
-                    polar_idx = polar_idx + (1.0 / revolution_len) * (2.0 * Math.PI);
+                    polar_idx = polar_idx + (1.0 / m_samples_per_revolution) * (2.0 * Math.PI);
 
                 }
                 /*
-                for (Int64 i = 0; i < a_nb_samples - revolution_len; ++i)
+                for (Int64 i = 0; i < a_nb_samples - m_samples_per_revolution; ++i)
                 {
                     prev_idx = i;
-                    current_idx = i + revolution_len;
+                    current_idx = i + m_samples_per_revolution;
                     current_outer = r_start - a_pitch[current_idx] - a_groove[2 * current_idx + 0];
                     current_inner = r_start - a_pitch[current_idx] - a_groove[2 * current_idx + 1];
                     prev_inner = r_start - a_pitch[prev_idx] - a_groove[2 * prev_idx + 0];
