@@ -14,7 +14,6 @@ namespace VMS80
 
         private float spin_speed;
         private int land;
-        private float gain;
 
         private Int64 m_samples_per_revolution;
 
@@ -23,6 +22,12 @@ namespace VMS80
         private float m_min_land;
 
         private string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
+
+        // WORKING ENV
+        private float[] m_groove = [];
+        private float[] m_pitch = [];
+        private float[] m_raw = [];
+        private float[] m_land = [];
 
         public Simulator()
         {
@@ -35,12 +40,26 @@ namespace VMS80
 
             spin_speed = (float)(100.0/180.0); // 33.3rpm in seconds
             land = 10; // um
-            gain = 1;
 
             read_config();
         }
 
-        public void compute_groove(float[] a_groove, float[] a_data, int a_nb_samples, int a_nb_channels)
+        public void process(float[] a_data, int a_nb_samples, int a_nb_channels)
+        {
+            m_groove = new float[2 * a_nb_samples];
+            m_pitch = new float[a_nb_samples];
+            m_raw = new float[a_nb_samples];
+            m_land = new float[a_nb_samples];
+
+            compute_groove(a_data, a_nb_samples, a_nb_channels);
+            compute_pitch(a_nb_samples);
+            compute_land(a_nb_samples);
+
+            // Write data to file so python can plot it
+            export_results(a_data, a_nb_samples);
+        }
+
+        private void compute_groove(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
             float modulation = (float)Math.Sin(stylus_angle) * (float)groove_fullscale;
             if (a_nb_channels == 2)
@@ -48,8 +67,8 @@ namespace VMS80
                 // compute inner and outer from L/R
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_groove[2 * i + 0] = a_data[2 * i + 0] * modulation - stylus_width / 2;
-                    a_groove[2 * i + 1] = a_data[2 * i + 1] * modulation + stylus_width / 2;
+                    m_groove[2 * i + 0] = a_data[2 * i + 0] * modulation - stylus_width / 2;
+                    m_groove[2 * i + 1] = a_data[2 * i + 1] * modulation + stylus_width / 2;
                 }
             }
             else
@@ -57,13 +76,13 @@ namespace VMS80
                 // mono or unknown : constant centered width
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_groove[2 * i + 0] = a_data[i] * modulation - stylus_width / 2;
-                    a_groove[2 * i + 1] = a_data[i] * modulation + stylus_width / 2;
+                    m_groove[2 * i + 0] = a_data[i] * modulation - stylus_width / 2;
+                    m_groove[2 * i + 1] = a_data[i] * modulation + stylus_width / 2;
                 }
             }
         }
 
-        public void compute_pitch(float[] a_pitch, float[] a_raw, float[] a_groove, int a_nb_samples)
+        private void compute_pitch(int a_nb_samples)
         {
             float r_start = vinyl_start * 1000;
             float r_stop = vinyl_stop * 1000;
@@ -84,13 +103,13 @@ namespace VMS80
             {
                 if (m_samples_per_revolution + idx < a_nb_samples - 1)
                 {
-                    current_rev = current_pitch + a_groove[2 * (m_samples_per_revolution + idx)];
-                    prev_rev = a_pitch[idx] + a_groove[2 * idx + 1];
+                    current_rev = current_pitch + m_groove[2 * (m_samples_per_revolution + idx)];
+                    prev_rev = m_pitch[idx] + m_groove[2 * idx + 1];
                 }
                 else
                 {
                     current_rev = current_pitch - stylus_width / 2;
-                    prev_rev = a_pitch[idx] + a_groove[2 * idx + 1];
+                    prev_rev = m_pitch[idx] + m_groove[2 * idx + 1];
                 }
 
                 // Compare previous inner and current outer groove to increase pitch if needed
@@ -101,7 +120,7 @@ namespace VMS80
                     current_pitch += (land - margin); // add what's missing
 
                     // interpolate if line from here to current_pitch will cross under peak
-                    float next_peak = ((current_pitch - a_pitch[idx]) / m_samples_per_revolution) * (peak_idx - idx) + a_pitch[idx];
+                    float next_peak = ((current_pitch - m_pitch[idx]) / m_samples_per_revolution) * (peak_idx - idx) + m_pitch[idx];
 
                     // Target peak if straight line doesn't go under peak_pitch
                     if (next_peak >= peak_pitch)
@@ -111,14 +130,14 @@ namespace VMS80
                     else
                     {
                         // continue in straight line to next peak
-                        delta = (peak - a_pitch[idx]) / (peak_idx - idx);
+                        delta = (peak - m_pitch[idx]) / (peak_idx - idx);
                         // if derivative is bigger, overwrite pitch
                         if (delta > last_delta)
                         {
                             Int64 end = Math.Min(peak_idx, a_nb_samples - 1);
                             for (int i = 0; i <= (end - idx); ++i)
                             {
-                                a_pitch[idx + i] = Math.Max(a_pitch[idx + i], a_pitch[idx] + i * delta);
+                                m_pitch[idx + i] = Math.Max(m_pitch[idx + i], m_pitch[idx] + i * delta);
                             }
                             last_delta = delta;
                         }
@@ -130,13 +149,13 @@ namespace VMS80
                 }
                 if (m_samples_per_revolution + idx < a_nb_samples - 1)
                 {
-                    a_pitch[m_samples_per_revolution + idx] = current_pitch;
-                    a_raw[m_samples_per_revolution + idx] = current_pitch;
+                    m_pitch[m_samples_per_revolution + idx] = current_pitch;
+                    m_raw[m_samples_per_revolution + idx] = current_pitch;
                 }
 
                 // Smooth the pitch control
-                delta = peak - a_pitch[idx];
-                a_pitch[idx + 1] = Math.Max(a_pitch[idx + 1], a_pitch[idx] + delta / (peak_idx - idx));
+                delta = peak - m_pitch[idx];
+                m_pitch[idx + 1] = Math.Max(m_pitch[idx + 1], m_pitch[idx] + delta / (peak_idx - idx));
 
                 ++idx;
             }
@@ -149,7 +168,7 @@ namespace VMS80
             }
         }
 
-        public void compute_land(float[] a_land, float[] a_pitch, float[] a_groove, int a_nb_samples)
+        private void compute_land(int a_nb_samples)
         {
             float r_start = vinyl_start * 1000;
             float r_stop = vinyl_stop * 1000;
@@ -166,12 +185,12 @@ namespace VMS80
 
             while (idx < window_len - 1)
             {
-                current_pitch = a_pitch[idx + m_samples_per_revolution];
-                current_rev = current_pitch + a_groove[2 * (idx + m_samples_per_revolution)];
-                prev_rev = a_pitch[idx] + a_groove[2 * idx + 1];
+                current_pitch = m_pitch[idx + m_samples_per_revolution];
+                current_rev = current_pitch + m_groove[2 * (idx + m_samples_per_revolution)];
+                prev_rev = m_pitch[idx] + m_groove[2 * idx + 1];
                 land = current_rev - prev_rev;
 
-                a_land[idx] = land;
+                m_land[idx] = land;
                 m_min_land = Math.Min(m_min_land, land);
                 ++idx;
             }
@@ -194,7 +213,7 @@ namespace VMS80
             m_samples_per_revolution = (Int64)(a_samplerate / spin_speed);
         }
 
-        public void export_results(float[] a_data, float[] a_pitch, float[] a_groove, float[] a_raw, float[] a_land, int a_nb_samples)
+        private void export_results(float[] a_data, int a_nb_samples)
         {
             float r_start = vinyl_start * 1000;
             //float current_inner, current_outer, prev_inner, prev_outer;
@@ -209,8 +228,8 @@ namespace VMS80
                 for (Int64 idx = 0; idx < a_nb_samples; ++idx)
                 {
                     outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
-                                        + a_pitch[idx] + " " + a_groove[2 * idx] + " " + a_groove[2 * idx + 1] + " "
-                                        + a_raw[idx] + " " + polar_idx + " " + a_land[idx]);
+                                        + m_pitch[idx] + " " + m_groove[2 * idx] + " " + m_groove[2 * idx + 1] + " "
+                                        + m_raw[idx] + " " + polar_idx + " " + m_land[idx]);
 
                     polar_idx = polar_idx + (float)(1.0 / m_samples_per_revolution) * (float)(2.0 * Math.PI);
 
@@ -220,10 +239,10 @@ namespace VMS80
                 {
                     prev_idx = i;
                     current_idx = i + m_samples_per_revolution;
-                    current_outer = r_start - a_pitch[current_idx] - a_groove[2 * current_idx + 0];
-                    current_inner = r_start - a_pitch[current_idx] - a_groove[2 * current_idx + 1];
-                    prev_inner = r_start - a_pitch[prev_idx] - a_groove[2 * prev_idx + 0];
-                    prev_outer = r_start - a_pitch[prev_idx] - a_groove[2 * prev_idx + 1];
+                    current_outer = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 0];
+                    current_inner = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 1];
+                    prev_inner = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 0];
+                    prev_outer = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 1];
                     outputFile.WriteLine(a_data[2 * i] + " " + a_data[2 * i + 1] + " " + current_outer + " "+ current_inner + " " + prev_inner + " " + prev_outer);
                 }
                 */

@@ -8,7 +8,7 @@ namespace VMS80
         {
             a_nb_samples = 0;
             a_nb_channels = 0;
-            a_data = null;
+            a_data = [];
 
             try
             {

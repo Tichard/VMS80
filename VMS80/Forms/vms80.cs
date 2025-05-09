@@ -44,8 +44,6 @@ namespace VMS80
             int the_nb_samples = 1000000;
             int the_nb_channels = 2;
 
-            m_simulator.set_samplerate(the_samplerate);
-
             float[] the_data;
 
             if (radioGenerateFreq.Checked)
@@ -62,21 +60,12 @@ namespace VMS80
                 Debug.WriteLine("Unsupported number of channels\n");
             }
 
-            float[] a_groove = new float[2 * the_nb_samples];
-            float[] a_pitch = new float[the_nb_samples];
-            float[] a_raw = new float[the_nb_samples];
-            float[] a_land = new float[the_nb_samples];
-
             // process the signal
             m_plugins.process(the_data, the_nb_samples, the_nb_channels);
 
             // Simulate
-            m_simulator.compute_groove(a_groove, the_data, the_nb_samples, the_nb_channels);
-            m_simulator.compute_pitch(a_pitch, a_raw, a_groove, the_nb_samples);
-            m_simulator.compute_land(a_land, a_pitch, a_groove, the_nb_samples);
-
-            // Write data to file so python can plot it
-            m_simulator.export_results(the_data, a_pitch, a_groove, a_raw, a_land, the_nb_samples);
+            m_simulator.set_samplerate(the_samplerate);
+            m_simulator.process(the_data, the_nb_samples, the_nb_channels);
         }
 
         private void generate_sinewave(out float[] a_data, int a_nb_samples, int a_nb_channels)
