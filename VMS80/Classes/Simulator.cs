@@ -12,10 +12,10 @@ namespace VMS80
         private int stylus_angle;
         private int groove_fullscale;
 
-        private float spin_speed;
-        private int land;
+        private readonly float spin_speed;
+        private readonly int land;
 
-        private string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
+        private readonly string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
 
         // WORKING ENV
         private float[] m_groove = [];
@@ -108,10 +108,8 @@ namespace VMS80
             Int64 idx = 0;
             Int64 peak_idx = 1;
 
-            float current_rev = 0;
-            float prev_rev = 0;
-            float delta = 0;
-            float last_delta = 0;
+            float current_rev, prev_rev;
+            float delta, last_delta = 0;
 
             while (((r_start - current_pitch) > r_stop) && (idx < a_nb_samples - 1))
             {
@@ -185,14 +183,12 @@ namespace VMS80
         private void compute_land(int a_nb_samples)
         {
             float r_start = vinyl_start * 1000;
-            float r_stop = vinyl_stop * 1000;
             Int64 idx = 0;
 
             Int64 window_len = Math.Min(m_computed_samples, a_nb_samples - m_samples_per_revolution);
 
-            float current_pitch = 0;
-            float current_rev = 0;
-            float prev_rev = 0;
+            float current_pitch;
+            float current_rev, prev_rev;
 
             m_min_land = r_start;
             float land;
@@ -242,38 +238,36 @@ namespace VMS80
             //Int64 current_idx, prev_idx;
             float polar_idx = 0;
 
-            using (StreamWriter outputFile = new StreamWriter(WORKSPACE + "Python\\pitch.data"))
+            using StreamWriter outputFile = new(WORKSPACE + "Python\\pitch.data");
+            // First line is initial revolution len
+            outputFile.WriteLine(r_start + " " + m_samples_per_revolution);
+
+            for (Int64 idx = 0; idx < a_nb_samples; ++idx)
             {
-                // First line is initial revolution len
-                outputFile.WriteLine(r_start + " " + m_samples_per_revolution);
+                outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
+                                    + m_pitch[idx] + " " + m_groove[2 * idx] + " " + m_groove[2 * idx + 1] + " "
+                                    + m_raw[idx] + " " + polar_idx + " " + m_land[idx]);
 
-                for (Int64 idx = 0; idx < a_nb_samples; ++idx)
-                {
-                    outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
-                                        + m_pitch[idx] + " " + m_groove[2 * idx] + " " + m_groove[2 * idx + 1] + " "
-                                        + m_raw[idx] + " " + polar_idx + " " + m_land[idx]);
+                polar_idx += (float)(1.0 / m_samples_per_revolution) * (float)(2.0 * Math.PI);
 
-                    polar_idx = polar_idx + (float)(1.0 / m_samples_per_revolution) * (float)(2.0 * Math.PI);
-
-                }
-                /*
-                for (Int64 i = 0; i < a_nb_samples - m_samples_per_revolution; ++i)
-                {
-                    prev_idx = i;
-                    current_idx = i + m_samples_per_revolution;
-                    current_outer = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 0];
-                    current_inner = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 1];
-                    prev_inner = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 0];
-                    prev_outer = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 1];
-                    outputFile.WriteLine(a_data[2 * i] + " " + a_data[2 * i + 1] + " " + current_outer + " "+ current_inner + " " + prev_inner + " " + prev_outer);
-                }
-                */
             }
+            /*
+            for (Int64 i = 0; i < a_nb_samples - m_samples_per_revolution; ++i)
+            {
+                prev_idx = i;
+                current_idx = i + m_samples_per_revolution;
+                current_outer = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 0];
+                current_inner = r_start - m_pitch[current_idx] - m_groove[2 * current_idx + 1];
+                prev_inner = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 0];
+                prev_outer = r_start - m_pitch[prev_idx] - m_groove[2 * prev_idx + 1];
+                outputFile.WriteLine(a_data[2 * i] + " " + a_data[2 * i + 1] + " " + current_outer + " "+ current_inner + " " + prev_inner + " " + prev_outer);
+            }
+            */
         }
 
         public void plot() { 
             // Execute Python script that will read the file
-            Process python = new Process();
+            Process python = new();
             python.StartInfo.FileName = @"python ";
             python.StartInfo.Arguments = WORKSPACE + "Python\\plot.py";
             python.StartInfo.UseShellExecute = false;
@@ -302,8 +296,8 @@ namespace VMS80
 
                     if (index > 0) // if "=" is in the line
                     {
-                        string key = line.Substring(0, index);
-                        string value = line.Substring(index + 1);
+                        string key = line[..index];
+                        string value = line[(index + 1)..];
 
                         switch (key)
                         {

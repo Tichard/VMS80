@@ -11,9 +11,6 @@ namespace VMS80
 
         private string m_filepath;
 
-        private float m_gen_frequency;
-        private int m_samplerate;
-
         public MainForm()
         {
             InitializeComponent();
@@ -23,8 +20,6 @@ namespace VMS80
             m_simulator = new Simulator();
 
             // Default values
-            m_samplerate = 48000;
-            m_gen_frequency = 100; // Perfectly fitted groove
             m_filepath = "";
 
             // Sync form plugins panels
@@ -43,12 +38,12 @@ namespace VMS80
             textBoxCompressorThreshold.Text = m_plugins.m_compressor.get_threshold().ToString("0.00", CultureInfo.InvariantCulture);
             textBoxCompressorGain.Text = m_plugins.m_compressor.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
 
-            inputSineFreq.Text = m_gen_frequency.ToString(CultureInfo.InvariantCulture);
+            inputSineFreq.Text = 100.ToString(CultureInfo.InvariantCulture);  // Perfectly fitted groove
         }
 
         public void simulate()
         {
-            int the_samplerate = m_samplerate;
+            int the_samplerate = 48000;
             int the_nb_samples = 1000000;
             int the_nb_channels = 2;
 
@@ -56,11 +51,11 @@ namespace VMS80
 
             if (radioGenerateFreq.Checked)
             {
-                generate_sinewave(out the_data, the_nb_samples, the_nb_channels);
+                generate_sinewave(out the_data, the_nb_samples, the_nb_channels, the_samplerate);
             }
             else
             {
-                m_audio_reader.read_wav_from_file(m_filepath, out the_data, out the_nb_samples, out the_nb_channels);
+                AudioReader.read_wav_from_file(m_filepath, out the_data, out the_nb_samples, out the_nb_channels, out the_samplerate);
             }
 
             if (the_nb_channels > 2)
@@ -77,10 +72,9 @@ namespace VMS80
             m_simulator.process(the_data, the_nb_samples, the_nb_channels);
         }
 
-        private void generate_sinewave(out float[] a_data, int a_nb_samples, int a_nb_channels)
+        private void generate_sinewave(out float[] a_data, int a_nb_samples, int a_nb_channels, int a_samplerate)
         {
             a_data = new float[a_nb_samples * a_nb_channels];
-            float the_smaplerate = m_samplerate;
             float the_gen_frequency = float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
             Debug.WriteLine("Generating " + the_gen_frequency + "Hz frequency");
 
@@ -88,26 +82,27 @@ namespace VMS80
             {
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_data[2 * i + 0] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
-                    a_data[2 * i + 1] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / the_smaplerate);
+                    a_data[2 * i + 0] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
+                    a_data[2 * i + 1] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
                 }
             }
             else
             {
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_data[i] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / m_samplerate);
+                    a_data[i] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
                 }
             }
         }
 
         private void btnImportFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
-
-            file.InitialDirectory = "c:\\";
-            file.Filter = "wav files (*.wav)|*.wav";
-            file.RestoreDirectory = true;
+            OpenFileDialog file = new()
+            {
+                InitialDirectory = "c:\\",
+                Filter = "wav files (*.wav)|*.wav",
+                RestoreDirectory = true
+            };
             if (file.ShowDialog() == DialogResult.OK)
             {
                 //Get the path of specified file
