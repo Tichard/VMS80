@@ -41,25 +41,30 @@
             textBoxMinLand = new TextBox();
             textBoxSurfaceFilling = new TextBox();
             panelEllipticalFilter = new Panel();
+            textBoxEllipticalCutOffGain = new TextBox();
+            textBoxEllipticalCutOffFrequency = new TextBox();
             labelEllipticalGain = new Label();
             labelEllipticalCutOffFrequency = new Label();
             checkBoxEllipticalFilter = new CheckBox();
             checkBoxHiFreqLim = new CheckBox();
             panelHiFreqLim = new Panel();
+            textBoxHiFreqLimiterThreshold = new TextBox();
+            textBoxHiFreqLimiterGain = new TextBox();
+            textBoxHiFreqLimiterCutOffFrequency = new TextBox();
             labelHiFreqLimThreshold = new Label();
             labelHiFreqLimGain = new Label();
             labelHiFreqLimCutOffFrequency = new Label();
             checkBoxCompressor = new CheckBox();
             panelCompressor = new Panel();
+            textBoxCompressorGain = new TextBox();
+            textBoxCompressorThreshold = new TextBox();
             labelCompressorGain = new Label();
             labelCompressorThreshold = new Label();
-            textBoxEllipticalCutOffFrequency = new TextBox();
-            textBoxEllipticalCutOffGain = new TextBox();
-            textBoxHiFreqLimiterCutOffFrequency = new TextBox();
-            textBoxHiFreqLimiterGain = new TextBox();
-            textBoxHiFreqLimiterThreshold = new TextBox();
-            textBoxCompressorThreshold = new TextBox();
-            textBoxCompressorGain = new TextBox();
+            textBoxMaxDepth = new TextBox();
+            textBoxMinDepth = new TextBox();
+            labelMaxDepth = new Label();
+            labelMinDepth = new Label();
+            buttonPlot = new Button();
             panelEllipticalFilter.SuspendLayout();
             panelHiFreqLim.SuspendLayout();
             panelCompressor.SuspendLayout();
@@ -113,9 +118,9 @@
             // buttonSimulate
             // 
             buttonSimulate.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            buttonSimulate.Location = new Point(30, 547);
+            buttonSimulate.Location = new Point(296, 554);
             buttonSimulate.Name = "buttonSimulate";
-            buttonSimulate.Size = new Size(360, 58);
+            buttonSimulate.Size = new Size(509, 58);
             buttonSimulate.TabIndex = 3;
             buttonSimulate.Text = "Simulate";
             buttonSimulate.UseVisualStyleBackColor = true;
@@ -159,7 +164,7 @@
             // 
             labelMinLand.AutoSize = true;
             labelMinLand.ForeColor = Color.White;
-            labelMinLand.Location = new Point(770, 547);
+            labelMinLand.Location = new Point(31, 680);
             labelMinLand.Name = "labelMinLand";
             labelMinLand.Size = new Size(164, 17);
             labelMinLand.TabIndex = 9;
@@ -169,7 +174,7 @@
             // 
             labelSurfaceFilling.AutoSize = true;
             labelSurfaceFilling.ForeColor = Color.White;
-            labelSurfaceFilling.Location = new Point(828, 588);
+            labelSurfaceFilling.Location = new Point(89, 721);
             labelSurfaceFilling.Name = "labelSurfaceFilling";
             labelSurfaceFilling.Size = new Size(106, 17);
             labelSurfaceFilling.TabIndex = 10;
@@ -177,7 +182,7 @@
             // 
             // textBoxMinLand
             // 
-            textBoxMinLand.Location = new Point(976, 544);
+            textBoxMinLand.Location = new Point(201, 677);
             textBoxMinLand.Name = "textBoxMinLand";
             textBoxMinLand.ReadOnly = true;
             textBoxMinLand.Size = new Size(70, 28);
@@ -185,7 +190,7 @@
             // 
             // textBoxSurfaceFilling
             // 
-            textBoxSurfaceFilling.Location = new Point(976, 585);
+            textBoxSurfaceFilling.Location = new Point(201, 715);
             textBoxSurfaceFilling.Name = "textBoxSurfaceFilling";
             textBoxSurfaceFilling.ReadOnly = true;
             textBoxSurfaceFilling.Size = new Size(70, 28);
@@ -201,6 +206,22 @@
             panelEllipticalFilter.Name = "panelEllipticalFilter";
             panelEllipticalFilter.Size = new Size(1061, 76);
             panelEllipticalFilter.TabIndex = 13;
+            // 
+            // textBoxEllipticalCutOffGain
+            // 
+            textBoxEllipticalCutOffGain.Location = new Point(905, 27);
+            textBoxEllipticalCutOffGain.Name = "textBoxEllipticalCutOffGain";
+            textBoxEllipticalCutOffGain.Size = new Size(100, 28);
+            textBoxEllipticalCutOffGain.TabIndex = 3;
+            textBoxEllipticalCutOffGain.TextChanged += textBoxEllipticalCutOffGain_TextChanged;
+            // 
+            // textBoxEllipticalCutOffFrequency
+            // 
+            textBoxEllipticalCutOffFrequency.Location = new Point(225, 27);
+            textBoxEllipticalCutOffFrequency.Name = "textBoxEllipticalCutOffFrequency";
+            textBoxEllipticalCutOffFrequency.Size = new Size(100, 28);
+            textBoxEllipticalCutOffFrequency.TabIndex = 2;
+            textBoxEllipticalCutOffFrequency.TextChanged += textBoxEllipticalCutOffFrequency_TextChanged;
             // 
             // labelEllipticalGain
             // 
@@ -259,6 +280,30 @@
             panelHiFreqLim.Size = new Size(1061, 76);
             panelHiFreqLim.TabIndex = 15;
             // 
+            // textBoxHiFreqLimiterThreshold
+            // 
+            textBoxHiFreqLimiterThreshold.Location = new Point(564, 32);
+            textBoxHiFreqLimiterThreshold.Name = "textBoxHiFreqLimiterThreshold";
+            textBoxHiFreqLimiterThreshold.Size = new Size(100, 28);
+            textBoxHiFreqLimiterThreshold.TabIndex = 19;
+            textBoxHiFreqLimiterThreshold.TextChanged += textBoxHiFreqLimiterThreshold_TextChanged;
+            // 
+            // textBoxHiFreqLimiterGain
+            // 
+            textBoxHiFreqLimiterGain.Location = new Point(905, 32);
+            textBoxHiFreqLimiterGain.Name = "textBoxHiFreqLimiterGain";
+            textBoxHiFreqLimiterGain.Size = new Size(100, 28);
+            textBoxHiFreqLimiterGain.TabIndex = 4;
+            textBoxHiFreqLimiterGain.TextChanged += textBoxHiFreqLimiterGain_TextChanged;
+            // 
+            // textBoxHiFreqLimiterCutOffFrequency
+            // 
+            textBoxHiFreqLimiterCutOffFrequency.Location = new Point(225, 32);
+            textBoxHiFreqLimiterCutOffFrequency.Name = "textBoxHiFreqLimiterCutOffFrequency";
+            textBoxHiFreqLimiterCutOffFrequency.Size = new Size(100, 28);
+            textBoxHiFreqLimiterCutOffFrequency.TabIndex = 19;
+            textBoxHiFreqLimiterCutOffFrequency.TextChanged += textBoxHiFreqLimiterCutOffFrequency_TextChanged;
+            // 
             // labelHiFreqLimThreshold
             // 
             labelHiFreqLimThreshold.AutoSize = true;
@@ -312,6 +357,22 @@
             panelCompressor.Size = new Size(1061, 76);
             panelCompressor.TabIndex = 17;
             // 
+            // textBoxCompressorGain
+            // 
+            textBoxCompressorGain.Location = new Point(905, 27);
+            textBoxCompressorGain.Name = "textBoxCompressorGain";
+            textBoxCompressorGain.Size = new Size(100, 28);
+            textBoxCompressorGain.TabIndex = 19;
+            textBoxCompressorGain.TextChanged += textBoxCompressorGain_TextChanged;
+            // 
+            // textBoxCompressorThreshold
+            // 
+            textBoxCompressorThreshold.Location = new Point(564, 27);
+            textBoxCompressorThreshold.Name = "textBoxCompressorThreshold";
+            textBoxCompressorThreshold.Size = new Size(100, 28);
+            textBoxCompressorThreshold.TabIndex = 4;
+            textBoxCompressorThreshold.TextChanged += textBoxCompressorThreshold_TextChanged;
+            // 
             // labelCompressorGain
             // 
             labelCompressorGain.AutoSize = true;
@@ -332,68 +393,64 @@
             labelCompressorThreshold.TabIndex = 2;
             labelCompressorThreshold.Text = "Threshold (dB)";
             // 
-            // textBoxEllipticalCutOffFrequency
+            // textBoxMaxDepth
             // 
-            textBoxEllipticalCutOffFrequency.Location = new Point(225, 27);
-            textBoxEllipticalCutOffFrequency.Name = "textBoxEllipticalCutOffFrequency";
-            textBoxEllipticalCutOffFrequency.Size = new Size(100, 28);
-            textBoxEllipticalCutOffFrequency.TabIndex = 2;
-            textBoxEllipticalCutOffFrequency.TextChanged += textBoxEllipticalCutOffFrequency_TextChanged;
+            textBoxMaxDepth.Location = new Point(440, 715);
+            textBoxMaxDepth.Name = "textBoxMaxDepth";
+            textBoxMaxDepth.ReadOnly = true;
+            textBoxMaxDepth.Size = new Size(70, 28);
+            textBoxMaxDepth.TabIndex = 22;
             // 
-            // textBoxEllipticalCutOffGain
+            // textBoxMinDepth
             // 
-            textBoxEllipticalCutOffGain.Location = new Point(905, 27);
-            textBoxEllipticalCutOffGain.Name = "textBoxEllipticalCutOffGain";
-            textBoxEllipticalCutOffGain.Size = new Size(100, 28);
-            textBoxEllipticalCutOffGain.TabIndex = 3;
-            textBoxEllipticalCutOffGain.TextChanged += textBoxEllipticalCutOffGain_TextChanged;
+            textBoxMinDepth.Location = new Point(440, 677);
+            textBoxMinDepth.Name = "textBoxMinDepth";
+            textBoxMinDepth.ReadOnly = true;
+            textBoxMinDepth.Size = new Size(70, 28);
+            textBoxMinDepth.TabIndex = 21;
             // 
-            // textBoxHiFreqLimiterCutOffFrequency
+            // labelMaxDepth
             // 
-            textBoxHiFreqLimiterCutOffFrequency.Location = new Point(225, 32);
-            textBoxHiFreqLimiterCutOffFrequency.Name = "textBoxHiFreqLimiterCutOffFrequency";
-            textBoxHiFreqLimiterCutOffFrequency.Size = new Size(100, 28);
-            textBoxHiFreqLimiterCutOffFrequency.TabIndex = 19;
-            textBoxHiFreqLimiterCutOffFrequency.TextChanged += textBoxHiFreqLimiterCutOffFrequency_TextChanged;
+            labelMaxDepth.AutoSize = true;
+            labelMaxDepth.ForeColor = Color.White;
+            labelMaxDepth.Location = new Point(348, 718);
+            labelMaxDepth.Name = "labelMaxDepth";
+            labelMaxDepth.Size = new Size(86, 17);
+            labelMaxDepth.TabIndex = 20;
+            labelMaxDepth.Text = "Max Depth:";
             // 
-            // textBoxHiFreqLimiterGain
+            // labelMinDepth
             // 
-            textBoxHiFreqLimiterGain.Location = new Point(905, 32);
-            textBoxHiFreqLimiterGain.Name = "textBoxHiFreqLimiterGain";
-            textBoxHiFreqLimiterGain.Size = new Size(100, 28);
-            textBoxHiFreqLimiterGain.TabIndex = 4;
-            textBoxHiFreqLimiterGain.TextChanged += textBoxHiFreqLimiterGain_TextChanged;
+            labelMinDepth.AutoSize = true;
+            labelMinDepth.ForeColor = Color.White;
+            labelMinDepth.Location = new Point(348, 680);
+            labelMinDepth.Name = "labelMinDepth";
+            labelMinDepth.Size = new Size(82, 17);
+            labelMinDepth.TabIndex = 19;
+            labelMinDepth.Text = "Min Depth:";
             // 
-            // textBoxHiFreqLimiterThreshold
+            // buttonPlot
             // 
-            textBoxHiFreqLimiterThreshold.Location = new Point(564, 32);
-            textBoxHiFreqLimiterThreshold.Name = "textBoxHiFreqLimiterThreshold";
-            textBoxHiFreqLimiterThreshold.Size = new Size(100, 28);
-            textBoxHiFreqLimiterThreshold.TabIndex = 19;
-            textBoxHiFreqLimiterThreshold.TextChanged += textBoxHiFreqLimiterThreshold_TextChanged;
-            // 
-            // textBoxCompressorThreshold
-            // 
-            textBoxCompressorThreshold.Location = new Point(564, 27);
-            textBoxCompressorThreshold.Name = "textBoxCompressorThreshold";
-            textBoxCompressorThreshold.Size = new Size(100, 28);
-            textBoxCompressorThreshold.TabIndex = 4;
-            textBoxCompressorThreshold.TextChanged += textBoxCompressorThreshold_TextChanged;
-            // 
-            // textBoxCompressorGain
-            // 
-            textBoxCompressorGain.Location = new Point(905, 27);
-            textBoxCompressorGain.Name = "textBoxCompressorGain";
-            textBoxCompressorGain.Size = new Size(100, 28);
-            textBoxCompressorGain.TabIndex = 19;
-            textBoxCompressorGain.TextChanged += textBoxCompressorGain_TextChanged;
+            buttonPlot.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            buttonPlot.Location = new Point(736, 689);
+            buttonPlot.Name = "buttonPlot";
+            buttonPlot.Size = new Size(281, 54);
+            buttonPlot.TabIndex = 23;
+            buttonPlot.Text = "Plot results";
+            buttonPlot.UseVisualStyleBackColor = true;
+            buttonPlot.Click += buttonPlot_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(1085, 650);
+            ClientSize = new Size(1085, 789);
+            Controls.Add(buttonPlot);
+            Controls.Add(textBoxMaxDepth);
+            Controls.Add(textBoxMinDepth);
+            Controls.Add(labelMaxDepth);
+            Controls.Add(labelMinDepth);
             Controls.Add(checkBoxCompressor);
             Controls.Add(panelCompressor);
             Controls.Add(checkBoxHiFreqLim);
@@ -427,11 +484,9 @@
 
         #endregion
 
-        private TextBox title;
         private Button btnImportFile;
         private TextBox textImportFilePath;
         private TextBox inputSineFreq;
-        private TextBox textSineFreq;
         private RadioButton radioGenerateFreq;
         private Button buttonSimulate;
         private RadioButton radioImportAudio;
@@ -461,5 +516,10 @@
         private TextBox textBoxHiFreqLimiterCutOffFrequency;
         private TextBox textBoxCompressorGain;
         private TextBox textBoxCompressorThreshold;
+        private TextBox textBoxMaxDepth;
+        private TextBox textBoxMinDepth;
+        private Label labelMaxDepth;
+        private Label labelMinDepth;
+        private Button buttonPlot;
     }
 }

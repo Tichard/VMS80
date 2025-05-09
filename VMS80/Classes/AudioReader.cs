@@ -12,7 +12,7 @@ namespace VMS80
 
             try
             {
-                using (FileStream fs = File.Open(filename, FileMode.Open))
+                using (FileStream fs = File.OpenRead(filename))
                 {
                     BinaryReader reader = new BinaryReader(fs);
 

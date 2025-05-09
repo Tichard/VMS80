@@ -15,12 +15,6 @@ namespace VMS80
         private float spin_speed;
         private int land;
 
-        private Int64 m_samples_per_revolution;
-
-        private float m_computed_filling;
-        private Int64 m_computed_samples;
-        private float m_min_land;
-
         private string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
 
         // WORKING ENV
@@ -28,6 +22,17 @@ namespace VMS80
         private float[] m_pitch = [];
         private float[] m_raw = [];
         private float[] m_land = [];
+
+
+        private Int64 m_samples_per_revolution;
+
+        // RESULTS
+        private float m_computed_filling;
+        private Int64 m_computed_samples;
+        private float m_min_land;
+        private float m_min_depth;
+        private float m_max_depth;
+
 
         public Simulator()
         {
@@ -62,18 +67,27 @@ namespace VMS80
         private void compute_groove(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
             float modulation = (float)Math.Sin(stylus_angle) * (float)groove_fullscale;
+            double depth_ratio = 1.0 / (2.0 * Math.Tan(stylus_angle / 2.0));
+            float depth = stylus_width * (float)depth_ratio;
+            m_min_depth = depth;
+            m_max_depth = depth;
+
             if (a_nb_channels == 2)
             {
-                // compute inner and outer from L/R
+                // compute inner/outer groove and depth from L/R
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
                     m_groove[2 * i + 0] = a_data[2 * i + 0] * modulation - stylus_width / 2;
                     m_groove[2 * i + 1] = a_data[2 * i + 1] * modulation + stylus_width / 2;
+                    depth = (m_groove[2 * i + 1] - m_groove[2 * i + 0]) * (float)depth_ratio;
+
+                    m_min_depth = Math.Min(m_min_depth, depth);
+                    m_max_depth = Math.Max(m_max_depth, depth);
                 }
             }
             else
             {
-                // mono or unknown : constant centered width
+                // mono : constant centered width and depth
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
                     m_groove[2 * i + 0] = a_data[i] * modulation - stylus_width / 2;
@@ -203,6 +217,14 @@ namespace VMS80
         public float get_surface_filling()
         {
             return m_computed_filling;
+        }
+        public float get_minimal_depth()
+        {
+            return m_min_depth;
+        }
+        public float get_maximal_depth()
+        {
+            return m_max_depth;
         }
 
         public void set_samplerate(int a_samplerate)

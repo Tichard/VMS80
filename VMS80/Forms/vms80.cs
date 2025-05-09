@@ -117,7 +117,12 @@ namespace VMS80
 
             textBoxMinLand.Text = m_simulator.get_minimal_land().ToString("0.00um");
             textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
+            textBoxMinDepth.Text = m_simulator.get_minimal_depth().ToString("0.00um");
+            textBoxMaxDepth.Text = m_simulator.get_maximal_depth().ToString("0.00um");
+        }
 
+        private void buttonPlot_Click(object sender, EventArgs e)
+        {
             m_simulator.plot();
             m_simulator.clear_results();
         }
