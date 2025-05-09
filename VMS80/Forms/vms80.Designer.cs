@@ -40,12 +40,12 @@
             labelSurfaceFilling = new Label();
             textBoxMinLand = new TextBox();
             textBoxSurfaceFilling = new TextBox();
-            panelEllipticalFilter = new Panel();
-            textBoxEllipticalCutOffGain = new TextBox();
-            textBoxEllipticalCutOffFrequency = new TextBox();
-            labelEllipticalGain = new Label();
-            labelEllipticalCutOffFrequency = new Label();
-            checkBoxEllipticalFilter = new CheckBox();
+            panelLowFreqMixer = new Panel();
+            textBoxLowFreqMixerGain = new TextBox();
+            textBoxLowFreqMixerCutOffFrequency = new TextBox();
+            labelLowFreqMixerGain = new Label();
+            labelLowFreqMixerCutOffFrequency = new Label();
+            checkBoxLowFreqMixer = new CheckBox();
             checkBoxHiFreqLim = new CheckBox();
             panelHiFreqLim = new Panel();
             textBoxHiFreqLimiterThreshold = new TextBox();
@@ -65,7 +65,7 @@
             labelMaxDepth = new Label();
             labelMinDepth = new Label();
             buttonPlot = new Button();
-            panelEllipticalFilter.SuspendLayout();
+            panelLowFreqMixer.SuspendLayout();
             panelHiFreqLim.SuspendLayout();
             panelCompressor.SuspendLayout();
             SuspendLayout();
@@ -196,64 +196,64 @@
             textBoxSurfaceFilling.Size = new Size(70, 28);
             textBoxSurfaceFilling.TabIndex = 12;
             // 
-            // panelEllipticalFilter
+            // panelLowFreqMixer
             // 
-            panelEllipticalFilter.Controls.Add(textBoxEllipticalCutOffGain);
-            panelEllipticalFilter.Controls.Add(textBoxEllipticalCutOffFrequency);
-            panelEllipticalFilter.Controls.Add(labelEllipticalGain);
-            panelEllipticalFilter.Controls.Add(labelEllipticalCutOffFrequency);
-            panelEllipticalFilter.Location = new Point(12, 192);
-            panelEllipticalFilter.Name = "panelEllipticalFilter";
-            panelEllipticalFilter.Size = new Size(1061, 76);
-            panelEllipticalFilter.TabIndex = 13;
+            panelLowFreqMixer.Controls.Add(textBoxLowFreqMixerGain);
+            panelLowFreqMixer.Controls.Add(textBoxLowFreqMixerCutOffFrequency);
+            panelLowFreqMixer.Controls.Add(labelLowFreqMixerGain);
+            panelLowFreqMixer.Controls.Add(labelLowFreqMixerCutOffFrequency);
+            panelLowFreqMixer.Location = new Point(12, 192);
+            panelLowFreqMixer.Name = "panelLowFreqMixer";
+            panelLowFreqMixer.Size = new Size(1061, 76);
+            panelLowFreqMixer.TabIndex = 13;
             // 
-            // textBoxEllipticalCutOffGain
+            // textBoxLowFreqMixerGain
             // 
-            textBoxEllipticalCutOffGain.Location = new Point(905, 27);
-            textBoxEllipticalCutOffGain.Name = "textBoxEllipticalCutOffGain";
-            textBoxEllipticalCutOffGain.Size = new Size(100, 28);
-            textBoxEllipticalCutOffGain.TabIndex = 3;
-            textBoxEllipticalCutOffGain.TextChanged += textBoxEllipticalCutOffGain_TextChanged;
+            textBoxLowFreqMixerGain.Location = new Point(905, 27);
+            textBoxLowFreqMixerGain.Name = "textBoxLowFreqMixerGain";
+            textBoxLowFreqMixerGain.Size = new Size(100, 28);
+            textBoxLowFreqMixerGain.TabIndex = 3;
+            textBoxLowFreqMixerGain.TextChanged += textBoxLowFreqMixerCutOffGain_TextChanged;
             // 
-            // textBoxEllipticalCutOffFrequency
+            // textBoxLowFreqMixerCutOffFrequency
             // 
-            textBoxEllipticalCutOffFrequency.Location = new Point(225, 27);
-            textBoxEllipticalCutOffFrequency.Name = "textBoxEllipticalCutOffFrequency";
-            textBoxEllipticalCutOffFrequency.Size = new Size(100, 28);
-            textBoxEllipticalCutOffFrequency.TabIndex = 2;
-            textBoxEllipticalCutOffFrequency.TextChanged += textBoxEllipticalCutOffFrequency_TextChanged;
+            textBoxLowFreqMixerCutOffFrequency.Location = new Point(225, 27);
+            textBoxLowFreqMixerCutOffFrequency.Name = "textBoxLowFreqMixerCutOffFrequency";
+            textBoxLowFreqMixerCutOffFrequency.Size = new Size(100, 28);
+            textBoxLowFreqMixerCutOffFrequency.TabIndex = 2;
+            textBoxLowFreqMixerCutOffFrequency.TextChanged += textBoxLowFreqMixerCutOffFrequency_TextChanged;
             // 
-            // labelEllipticalGain
+            // labelLowFreqMixerGain
             // 
-            labelEllipticalGain.AutoSize = true;
-            labelEllipticalGain.ForeColor = Color.White;
-            labelEllipticalGain.Location = new Point(816, 30);
-            labelEllipticalGain.Name = "labelEllipticalGain";
-            labelEllipticalGain.Size = new Size(70, 17);
-            labelEllipticalGain.TabIndex = 1;
-            labelEllipticalGain.Text = "Gain (dB)";
+            labelLowFreqMixerGain.AutoSize = true;
+            labelLowFreqMixerGain.ForeColor = Color.White;
+            labelLowFreqMixerGain.Location = new Point(816, 30);
+            labelLowFreqMixerGain.Name = "labelLowFreqMixerGain";
+            labelLowFreqMixerGain.Size = new Size(70, 17);
+            labelLowFreqMixerGain.TabIndex = 1;
+            labelLowFreqMixerGain.Text = "Gain (dB)";
             // 
-            // labelEllipticalCutOffFrequency
+            // labelLowFreqMixerCutOffFrequency
             // 
-            labelEllipticalCutOffFrequency.AutoSize = true;
-            labelEllipticalCutOffFrequency.ForeColor = Color.White;
-            labelEllipticalCutOffFrequency.Location = new Point(44, 30);
-            labelEllipticalCutOffFrequency.Name = "labelEllipticalCutOffFrequency";
-            labelEllipticalCutOffFrequency.Size = new Size(168, 17);
-            labelEllipticalCutOffFrequency.TabIndex = 0;
-            labelEllipticalCutOffFrequency.Text = "Cut-Off Frequency (Hz)";
+            labelLowFreqMixerCutOffFrequency.AutoSize = true;
+            labelLowFreqMixerCutOffFrequency.ForeColor = Color.White;
+            labelLowFreqMixerCutOffFrequency.Location = new Point(44, 30);
+            labelLowFreqMixerCutOffFrequency.Name = "labelLowFreqMixerCutOffFrequency";
+            labelLowFreqMixerCutOffFrequency.Size = new Size(168, 17);
+            labelLowFreqMixerCutOffFrequency.TabIndex = 0;
+            labelLowFreqMixerCutOffFrequency.Text = "Cut-Off Frequency (Hz)";
             // 
-            // checkBoxEllipticalFilter
+            // checkBoxLowFreqMixer
             // 
-            checkBoxEllipticalFilter.AutoSize = true;
-            checkBoxEllipticalFilter.ForeColor = Color.White;
-            checkBoxEllipticalFilter.Location = new Point(12, 165);
-            checkBoxEllipticalFilter.Name = "checkBoxEllipticalFilter";
-            checkBoxEllipticalFilter.Size = new Size(120, 21);
-            checkBoxEllipticalFilter.TabIndex = 14;
-            checkBoxEllipticalFilter.Text = "Elliptical filter";
-            checkBoxEllipticalFilter.UseVisualStyleBackColor = true;
-            checkBoxEllipticalFilter.CheckedChanged += checkBoxEllipticalFilter_CheckedChanged;
+            checkBoxLowFreqMixer.AutoSize = true;
+            checkBoxLowFreqMixer.ForeColor = Color.White;
+            checkBoxLowFreqMixer.Location = new Point(12, 165);
+            checkBoxLowFreqMixer.Name = "checkBoxLowFreqMixer";
+            checkBoxLowFreqMixer.Size = new Size(176, 21);
+            checkBoxLowFreqMixer.TabIndex = 14;
+            checkBoxLowFreqMixer.Text = "Low-Frequency Mixer";
+            checkBoxLowFreqMixer.UseVisualStyleBackColor = true;
+            checkBoxLowFreqMixer.CheckedChanged += checkBoxLowFreqMixer_CheckedChanged;
             // 
             // checkBoxHiFreqLim
             // 
@@ -261,9 +261,9 @@
             checkBoxHiFreqLim.ForeColor = Color.White;
             checkBoxHiFreqLim.Location = new Point(12, 274);
             checkBoxHiFreqLim.Name = "checkBoxHiFreqLim";
-            checkBoxHiFreqLim.Size = new Size(185, 21);
+            checkBoxHiFreqLim.Size = new Size(189, 21);
             checkBoxHiFreqLim.TabIndex = 16;
-            checkBoxHiFreqLim.Text = "High Frequency Limiter";
+            checkBoxHiFreqLim.Text = "High-Frequency Limiter";
             checkBoxHiFreqLim.UseVisualStyleBackColor = true;
             checkBoxHiFreqLim.CheckedChanged += checkBoxHiFreqLim_CheckedChanged;
             // 
@@ -455,8 +455,8 @@
             Controls.Add(panelCompressor);
             Controls.Add(checkBoxHiFreqLim);
             Controls.Add(panelHiFreqLim);
-            Controls.Add(checkBoxEllipticalFilter);
-            Controls.Add(panelEllipticalFilter);
+            Controls.Add(checkBoxLowFreqMixer);
+            Controls.Add(panelLowFreqMixer);
             Controls.Add(textBoxSurfaceFilling);
             Controls.Add(textBoxMinLand);
             Controls.Add(labelSurfaceFilling);
@@ -472,8 +472,8 @@
             Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
             Name = "MainForm";
             Text = "VMS80";
-            panelEllipticalFilter.ResumeLayout(false);
-            panelEllipticalFilter.PerformLayout();
+            panelLowFreqMixer.ResumeLayout(false);
+            panelLowFreqMixer.PerformLayout();
             panelHiFreqLim.ResumeLayout(false);
             panelHiFreqLim.PerformLayout();
             panelCompressor.ResumeLayout(false);
@@ -496,21 +496,21 @@
         private Label labelSurfaceFilling;
         private TextBox textBoxMinLand;
         private TextBox textBoxSurfaceFilling;
-        private Panel panelEllipticalFilter;
-        private CheckBox checkBoxEllipticalFilter;
+        private Panel panelLowFreqMixer;
+        private CheckBox checkBoxLowFreqMixer;
         private CheckBox checkBoxHiFreqLim;
         private Panel panelHiFreqLim;
         private CheckBox checkBoxCompressor;
         private Panel panelCompressor;
-        private Label labelEllipticalGain;
-        private Label labelEllipticalCutOffFrequency;
+        private Label labelLowFreqMixerGain;
+        private Label labelLowFreqMixerCutOffFrequency;
         private Label labelCompressorGain;
         private Label labelCompressorThreshold;
         private Label labelHiFreqLimThreshold;
         private Label labelHiFreqLimGain;
         private Label labelHiFreqLimCutOffFrequency;
-        private TextBox textBoxEllipticalCutOffGain;
-        private TextBox textBoxEllipticalCutOffFrequency;
+        private TextBox textBoxLowFreqMixerGain;
+        private TextBox textBoxLowFreqMixerCutOffFrequency;
         private TextBox textBoxHiFreqLimiterThreshold;
         private TextBox textBoxHiFreqLimiterGain;
         private TextBox textBoxHiFreqLimiterCutOffFrequency;

@@ -28,7 +28,7 @@ This needs Python to be installed with matplotlib on the machine.
 ### *Classes* - source code files
 - [Simulator.cs](VMS80/Classes/Simulator.cs) : Computes the pitch-control for the given audio based on the config file.
 - [Plugin.cs](VMS80/Classes/Plugins.cs) : Controls and apply audio plugins.
-    - [EllipticalFilter.cs](VMS80/Classes/EllipticalFilter.cs) : #TODO
+    - [LowFreqMixer.cs](VMS80/Classes/LowFreqMixer.cs) : Sum the low frequencies stereo into mono to limit groove depth.
     - [HiFreqLimiter.cs](VMS80/Classes/HiFreqLimiter.cs) : #TODO
     - [Compressor.cs](VMS80/Classes/Compressor.cs) : #TODO
 - [AudioReader.cs](VMS80/Classes/AudioReader.cs) : Import audio file.

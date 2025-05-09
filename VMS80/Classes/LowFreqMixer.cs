@@ -2,14 +2,12 @@
 
 namespace VMS80
 {
-    internal class HiFreqLimiter
+    internal class LowFreqMixer
     {
         public int samplerate;
 
         private int m_cutoff_frequency;
-        private float m_threshold;
         private float m_gain;
-        private float m_gain_reduction;
 
         private readonly Biquad m_low_pass_L;
         private readonly Biquad m_low_pass_R;
@@ -18,7 +16,7 @@ namespace VMS80
 
         private readonly int nb_biquad = 4;
 
-        public HiFreqLimiter()
+        public LowFreqMixer()
         {
             m_low_pass_L = new Biquad();
             m_low_pass_R = new Biquad();
@@ -27,7 +25,6 @@ namespace VMS80
 
             // Default value
             set_cutoff_frequency(200);
-            set_threshold(0);
             set_gain(0);
         }
 
@@ -36,6 +33,7 @@ namespace VMS80
             if (a_nb_channels == 2)
             {
                 float low_L, high_L, low_R, high_R;
+                float low_mono;
 
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
@@ -44,37 +42,20 @@ namespace VMS80
                     low_R = m_low_pass_R.process(a_data[2 * i + 1]);
                     high_R = m_hi_pass_R.process(a_data[2 * i + 1]);
 
+                    // Mix the low bands to get Mono
+                    low_mono = (low_L + low_R) / 2;
 
-                    // Limit Hi-Band
-                    // TODO
-
-                    a_data[2 * i + 0] = (high_L + low_L) * m_gain;
-                    a_data[2 * i + 1] = (high_R + low_R) * m_gain;
+                    a_data[2 * i + 0] = (high_L + low_mono) * m_gain;
+                    a_data[2 * i + 1] = (high_R + low_mono) * m_gain;
                 }
             }
             else
             {
-                float low, high;
-
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    low = m_low_pass_L.process(a_data[i]);
-                    high = m_hi_pass_L.process(a_data[i]);
-
-                    // Limit Hi-Band
-                    // TODO
-
-                    a_data[i] = (high + low) * m_gain;
+                    a_data[i] *= m_gain;
                 }
             }
-        }
-        public float get_threshold()
-        {
-            return (float)(20.0 * Math.Log10(m_threshold));
-        }
-        public void set_threshold(float a_threshold)
-        {
-            m_threshold = (float)Math.Pow(10.0, a_threshold / 20.0);
         }
 
         public int get_cutoff_frequency()
@@ -97,11 +78,7 @@ namespace VMS80
         }
         public void set_gain(float a_gain)
         {
-            m_gain = (float)Math.Pow(10.0,a_gain/20.0);
-        }
-        public float get_gain_reduction()
-        {
-            return (float)(20.0 * Math.Log10(m_gain_reduction));
+            m_gain = (float)Math.Pow(10.0, a_gain / 20.0);
         }
     }
 }

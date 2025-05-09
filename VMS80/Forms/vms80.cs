@@ -5,9 +5,9 @@ namespace VMS80
 {
     public partial class MainForm : Form
     {
-        private AudioReader m_audio_reader;
-        private Plugins m_plugins;
-        private Simulator m_simulator;
+        private readonly AudioReader m_audio_reader;
+        private readonly Plugins m_plugins;
+        private readonly Simulator m_simulator;
 
         private string m_filepath;
 
@@ -28,12 +28,20 @@ namespace VMS80
             m_filepath = "";
 
             // Sync form plugins panels
-            checkBoxEllipticalFilter.Checked = m_plugins.m_elliptical_filter_enable;
-            panelEllipticalFilter.Enabled = checkBoxEllipticalFilter.Checked;
-            checkBoxHiFreqLim.Checked = m_plugins.m_hi_freq_liniter_enable;
+            checkBoxLowFreqMixer.Checked = m_plugins.m_low_freq_mixer_enable;
+            panelLowFreqMixer.Enabled = checkBoxLowFreqMixer.Checked;
+            checkBoxHiFreqLim.Checked = m_plugins.m_hi_freq_limiter_enable;
             panelHiFreqLim.Enabled = checkBoxHiFreqLim.Checked;
-            m_plugins.m_compressor_enable = checkBoxCompressor.Checked = m_plugins.m_compressor_enable;
+            m_plugins.m_compressor_enable = checkBoxCompressor.Checked;
             panelCompressor.Enabled = checkBoxCompressor.Checked;
+
+            textBoxLowFreqMixerCutOffFrequency.Text = m_plugins.m_low_freq_mixer.get_cutoff_frequency().ToString();
+            textBoxLowFreqMixerGain.Text = m_plugins.m_low_freq_mixer.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
+            textBoxHiFreqLimiterCutOffFrequency.Text = m_plugins.m_hi_freq_limiter.get_cutoff_frequency().ToString();
+            textBoxHiFreqLimiterThreshold.Text = m_plugins.m_hi_freq_limiter.get_threshold().ToString("0.00", CultureInfo.InvariantCulture);
+            textBoxHiFreqLimiterGain.Text = m_plugins.m_hi_freq_limiter.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
+            textBoxCompressorThreshold.Text = m_plugins.m_compressor.get_threshold().ToString("0.00", CultureInfo.InvariantCulture);
+            textBoxCompressorGain.Text = m_plugins.m_compressor.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
 
             inputSineFreq.Text = m_gen_frequency.ToString(CultureInfo.InvariantCulture);
         }
@@ -61,6 +69,7 @@ namespace VMS80
             }
 
             // process the signal
+            m_plugins.set_samplerate(the_samplerate);
             m_plugins.process(the_data, the_nb_samples, the_nb_channels);
 
             // Simulate
@@ -127,15 +136,15 @@ namespace VMS80
             m_simulator.clear_results();
         }
 
-        private void checkBoxEllipticalFilter_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxLowFreqMixer_CheckedChanged(object sender, EventArgs e)
         {
-            m_plugins.m_elliptical_filter_enable = checkBoxEllipticalFilter.Checked;
-            panelEllipticalFilter.Enabled = checkBoxEllipticalFilter.Checked;
+            m_plugins.m_low_freq_mixer_enable = checkBoxLowFreqMixer.Checked;
+            panelLowFreqMixer.Enabled = checkBoxLowFreqMixer.Checked;
         }
 
         private void checkBoxHiFreqLim_CheckedChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter_enable = checkBoxHiFreqLim.Checked;
+            m_plugins.m_hi_freq_limiter_enable = checkBoxHiFreqLim.Checked;
             panelHiFreqLim.Enabled = checkBoxHiFreqLim.Checked;
         }
 
@@ -145,29 +154,29 @@ namespace VMS80
             panelCompressor.Enabled = checkBoxCompressor.Checked;
         }
 
-        private void textBoxEllipticalCutOffFrequency_TextChanged(object sender, EventArgs e)
+        private void textBoxLowFreqMixerCutOffFrequency_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_elliptical_filter.set_cutoff_frequency(int.Parse(textBoxEllipticalCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_low_freq_mixer.set_cutoff_frequency(int.Parse(textBoxLowFreqMixerCutOffFrequency.Text, CultureInfo.InvariantCulture));
         }
 
-        private void textBoxEllipticalCutOffGain_TextChanged(object sender, EventArgs e)
+        private void textBoxLowFreqMixerCutOffGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_elliptical_filter.set_gain(float.Parse(textBoxEllipticalCutOffGain.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_low_freq_mixer.set_gain(float.Parse(textBoxLowFreqMixerGain.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxHiFreqLimiterCutOffFrequency_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter.set_cutoff_frequency(int.Parse(textBoxHiFreqLimiterCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_hi_freq_limiter.set_cutoff_frequency(int.Parse(textBoxHiFreqLimiterCutOffFrequency.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxHiFreqLimiterThreshold_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter.set_threshold(float.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_hi_freq_limiter.set_threshold(float.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxHiFreqLimiterGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_liniter.set_gain(float.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
+            m_plugins.m_hi_freq_limiter.set_gain(float.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
         }
 
         private void textBoxCompressorThreshold_TextChanged(object sender, EventArgs e)
