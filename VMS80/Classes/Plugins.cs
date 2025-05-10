@@ -3,9 +3,9 @@
     internal class Plugins
     {
 
-        public LowFreqMixer m_low_freq_mixer;
-        public HiFreqLimiter m_hi_freq_limiter;
-        public Compressor m_compressor;
+        public Plugin.LowFreqMixer m_low_freq_mixer;
+        public Plugin.HiFreqLimiter m_hi_freq_limiter;
+        public Plugin.Compressor m_compressor;
 
         public bool m_low_freq_mixer_enable;
         public bool m_hi_freq_limiter_enable;
@@ -13,9 +13,9 @@
 
         public Plugins()
         {
-            m_low_freq_mixer = new LowFreqMixer();
-            m_hi_freq_limiter = new HiFreqLimiter();
-            m_compressor = new Compressor();
+            m_low_freq_mixer = new Plugin.LowFreqMixer();
+            m_hi_freq_limiter = new Plugin.HiFreqLimiter();
+            m_compressor = new Plugin.Compressor();
 
             m_low_freq_mixer_enable = true;
             m_hi_freq_limiter_enable = false;

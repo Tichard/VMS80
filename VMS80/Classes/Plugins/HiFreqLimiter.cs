@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VMS80
+namespace VMS80.Plugin
 {
     internal class HiFreqLimiter
     {

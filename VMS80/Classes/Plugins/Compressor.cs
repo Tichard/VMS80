@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace VMS80
+namespace VMS80.Plugin
 {
     internal class Compressor
     {
