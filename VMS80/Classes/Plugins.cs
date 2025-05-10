@@ -38,11 +38,11 @@
             }
         }
 
-        public void set_samplerate(int samplerate)
+        public void set_samplerate(int a_samplerate)
         {
-            m_low_freq_mixer.samplerate = samplerate;
-            m_hi_freq_limiter.samplerate = samplerate;
-            m_compressor.samplerate = samplerate;
+            m_low_freq_mixer.set_samplerate(a_samplerate);
+            m_hi_freq_limiter.set_samplerate(a_samplerate);
+            m_compressor.set_samplerate(a_samplerate);
         }
 
     }

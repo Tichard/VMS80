@@ -4,7 +4,7 @@ namespace VMS80.Plugin
 {
     internal class LowFreqMixer
     {
-        public int samplerate;
+        private int m_samplerate;
 
         private int m_cutoff_frequency;
         private float m_gain;
@@ -58,6 +58,14 @@ namespace VMS80.Plugin
             }
         }
 
+        public void set_samplerate(int a_samplerate)
+        {
+            m_samplerate = a_samplerate;
+
+            // update biquads
+            set_cutoff_frequency(m_cutoff_frequency);
+        }
+
         public int get_cutoff_frequency()
         {
             return m_cutoff_frequency;
@@ -66,10 +74,10 @@ namespace VMS80.Plugin
         {
             m_cutoff_frequency = a_cutoff_frequency;
 
-            m_low_pass_L.init_low_pass((float)a_cutoff_frequency / samplerate, nb_biquad);
-            m_hi_pass_L.init_hi_pass((float)a_cutoff_frequency / samplerate, nb_biquad);
-            m_low_pass_R.init_low_pass((float)a_cutoff_frequency / samplerate, nb_biquad);
-            m_hi_pass_R.init_hi_pass((float)a_cutoff_frequency / samplerate, nb_biquad);
+            m_low_pass_L.init_low_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
+            m_hi_pass_L.init_hi_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
+            m_low_pass_R.init_low_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
+            m_hi_pass_R.init_hi_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
         }
 
         public float get_gain()

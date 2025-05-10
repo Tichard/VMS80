@@ -5,7 +5,7 @@ namespace VMS80.Plugin
 {
     internal class Compressor
     {
-        public int samplerate;
+        private int m_samplerate;
 
         private float m_threshold;
         private float m_gain;
@@ -35,6 +35,11 @@ namespace VMS80.Plugin
                     a_data[i] *= m_gain;
                 }
             }
+        }
+
+        public void set_samplerate(int a_samplerate)
+        {
+            m_samplerate = a_samplerate;
         }
 
         public float get_threshold()
