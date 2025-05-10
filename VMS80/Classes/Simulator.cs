@@ -66,8 +66,9 @@ namespace VMS80
 
         private void compute_groove(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
-            float modulation = (float)Math.Sin(stylus_angle) * (float)groove_fullscale;
-            double depth_ratio = 1.0 / (2.0 * Math.Tan(stylus_angle / 2.0));
+            double stylus_radian = stylus_angle * Math.PI / 180.0;
+            float modulation = (float)Math.Sin(stylus_radian) * (float)groove_fullscale;
+            double depth_ratio = 1.0 / (2.0 * Math.Tan(stylus_radian / 2.0));
             float depth = stylus_width * (float)depth_ratio;
             m_min_depth = depth;
             m_max_depth = depth;
