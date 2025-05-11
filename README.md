@@ -20,7 +20,7 @@ This repository is a Visual Studio project of a Windows Form executable.
 
 ## Dependencies
 
-At this stage of the project, it calls an external Python script to use a dynamic plot.
+At this stage of the project, it needs to call an external Python script to use a dynamic plot of the polar vinyl render.
 This needs Python to be installed with matplotlib on the machine. 
 
 ## Structure
@@ -40,16 +40,15 @@ This needs Python to be installed with matplotlib on the machine.
 - [PlotForm.cs](VMS80/Forms/MainForm.cs) : Sub Windows Form to show the computed pitch control and resulting land achieved.
 
 ### *Python* - source Pyhton scripts
-- [Plot.py](VMS80/Python/plot.py) : Parse the data file and plot the simulation results.
+- [Plot.py](VMS80/Python/plot.py) : Parse the data file and plot the simulated polar view of the vinyl.
 
 ## Future steps
 
-In order to improve the signal shape to cut into the vinyl disk, some processing can be added to limit the groove-depth (out-of-phase stereo),
-the velocity and the acceleration of the stylus.
+In order to improve the signal shape to cut into the vinyl disk, some processing can be added to control the velocity and the acceleration of the stylus.
 
 The skeleton of some of these audio processing plugins are already added into code but need to be developed in a future time.
 
-Final graphical results are intended to be embedded int eh executable and not to call anymore an external script.
+Full final graphical results are intended to be embedded in the executable and not to call anymore an external script.
 
 ## Ressources
 This work is based on the following documentation:

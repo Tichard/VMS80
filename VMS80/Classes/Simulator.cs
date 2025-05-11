@@ -207,10 +207,30 @@ namespace VMS80
             }
         }
 
-        public void get_data(Int64 a_data_position, Int64 a_data_size)
+        public double[][] get_groove_section(Int64 a_data_index, Int64 a_data_size)
         {
-            // TODO
-            Debug.WriteLine("Plotting data @" + a_data_position + " [" + a_data_size + "]\n");
+            double[][] section = new double[a_data_size][];
+            double outer_groove, inner_groove;
+            double r_start = vinyl_start * 1000;
+
+            if (a_data_index >= 0)
+            {
+                for (Int64 idx = a_data_index; idx < a_data_index + a_data_size; ++idx)
+                {
+                    outer_groove = r_start - m_pitch[idx] - m_groove[2 * idx];
+                    inner_groove = r_start - m_pitch[idx] - m_groove[2 * idx + 1];
+                    section[idx - a_data_index] = [outer_groove, inner_groove];
+                }
+            }
+            else
+            {
+                for (Int64 idx = 0; idx < a_data_size; ++idx)
+                {
+                    section[idx] = [Double.NaN, Double.NaN];
+                }
+            }
+
+            return section;
         }
 
         public float get_minimal_land()

@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             chartGroove = new System.Windows.Forms.DataVisualization.Charting.Chart();
             buttonZoomOut = new Button();
             buttonZoomIn = new Button();
@@ -39,31 +37,28 @@
             buttonPrev = new Button();
             buttonNext = new Button();
             textBoxZoom = new TextBox();
+            labelPlot = new Label();
             ((System.ComponentModel.ISupportInitialize)chartGroove).BeginInit();
             SuspendLayout();
             // 
             // chartGroove
             // 
-            chartArea3.Name = "ChartArea1";
-            chartGroove.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            chartGroove.Legends.Add(legend3);
-            chartGroove.Location = new Point(89, 107);
+            chartGroove.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            legend1.Name = "Legend";
+            chartGroove.Legends.Add(legend1);
+            chartGroove.Location = new Point(89, 50);
             chartGroove.Name = "chartGroove";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            chartGroove.Series.Add(series3);
             chartGroove.Size = new Size(989, 450);
             chartGroove.TabIndex = 0;
             chartGroove.Text = "chart1";
             // 
             // buttonZoomOut
             // 
+            buttonZoomOut.Anchor = AnchorStyles.Top;
             buttonZoomOut.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             buttonZoomOut.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             buttonZoomOut.ForeColor = SystemColors.ControlText;
-            buttonZoomOut.Location = new Point(459, 69);
+            buttonZoomOut.Location = new Point(455, 12);
             buttonZoomOut.Name = "buttonZoomOut";
             buttonZoomOut.Size = new Size(72, 32);
             buttonZoomOut.TabIndex = 1;
@@ -73,9 +68,10 @@
             // 
             // buttonZoomIn
             // 
+            buttonZoomIn.Anchor = AnchorStyles.Top;
             buttonZoomIn.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Italic);
             buttonZoomIn.ForeColor = SystemColors.ControlText;
-            buttonZoomIn.Location = new Point(643, 69);
+            buttonZoomIn.Location = new Point(639, 12);
             buttonZoomIn.Name = "buttonZoomIn";
             buttonZoomIn.Size = new Size(75, 32);
             buttonZoomIn.TabIndex = 2;
@@ -85,9 +81,10 @@
             // 
             // buttonRender
             // 
+            buttonRender.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonRender.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Italic);
             buttonRender.ForeColor = SystemColors.ControlText;
-            buttonRender.Location = new Point(904, 613);
+            buttonRender.Location = new Point(904, 522);
             buttonRender.Name = "buttonRender";
             buttonRender.Size = new Size(251, 68);
             buttonRender.TabIndex = 3;
@@ -97,10 +94,11 @@
             // 
             // labelRender
             // 
+            labelRender.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             labelRender.AutoSize = true;
             labelRender.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
             labelRender.ForeColor = SystemColors.ControlLightLight;
-            labelRender.Location = new Point(948, 684);
+            labelRender.Location = new Point(948, 593);
             labelRender.Name = "labelRender";
             labelRender.Size = new Size(207, 17);
             labelRender.TabIndex = 4;
@@ -108,9 +106,10 @@
             // 
             // buttonPrev
             // 
+            buttonPrev.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             buttonPrev.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonPrev.ForeColor = SystemColors.ControlText;
-            buttonPrev.Location = new Point(12, 107);
+            buttonPrev.Location = new Point(12, 50);
             buttonPrev.Name = "buttonPrev";
             buttonPrev.Size = new Size(71, 450);
             buttonPrev.TabIndex = 5;
@@ -120,9 +119,10 @@
             // 
             // buttonNext
             // 
+            buttonNext.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             buttonNext.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonNext.ForeColor = SystemColors.ControlText;
-            buttonNext.Location = new Point(1084, 107);
+            buttonNext.Location = new Point(1084, 50);
             buttonNext.Name = "buttonNext";
             buttonNext.Size = new Size(71, 450);
             buttonNext.TabIndex = 6;
@@ -132,20 +132,32 @@
             // 
             // textBoxZoom
             // 
+            textBoxZoom.Anchor = AnchorStyles.Top;
             textBoxZoom.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            textBoxZoom.Location = new Point(537, 69);
+            textBoxZoom.Location = new Point(533, 12);
             textBoxZoom.Name = "textBoxZoom";
             textBoxZoom.ReadOnly = true;
             textBoxZoom.Size = new Size(100, 32);
             textBoxZoom.TabIndex = 7;
             textBoxZoom.TextAlign = HorizontalAlignment.Center;
             // 
+            // labelPlot
+            // 
+            labelPlot.AutoSize = true;
+            labelPlot.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Italic);
+            labelPlot.Location = new Point(12, 15);
+            labelPlot.Name = "labelPlot";
+            labelPlot.Size = new Size(374, 20);
+            labelPlot.TabIndex = 8;
+            labelPlot.Text = "Groove Land Comparison (Quarter Revolution)";
+            // 
             // PlotForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(1167, 710);
+            ClientSize = new Size(1167, 620);
+            Controls.Add(labelPlot);
             Controls.Add(textBoxZoom);
             Controls.Add(buttonNext);
             Controls.Add(buttonPrev);
@@ -172,5 +184,6 @@
         private Button buttonPrev;
         private Button buttonNext;
         private TextBox textBoxZoom;
+        private Label labelPlot;
     }
 }

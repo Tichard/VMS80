@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
  
 # Select Display
 DISPLAY_PITCH = 0
-DISPLAY_ERR = 1
+DISPLAY_ERR = 0
 DISPLAY_POLAR = 1
 
 audio_array = []

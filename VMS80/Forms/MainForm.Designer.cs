@@ -94,6 +94,7 @@
             // 
             // inputSineFreq
             // 
+            inputSineFreq.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             inputSineFreq.Font = new Font("Lucida Sans Unicode", 9F, FontStyle.Italic);
             inputSineFreq.Location = new Point(757, 111);
             inputSineFreq.Name = "inputSineFreq";
@@ -103,6 +104,7 @@
             // 
             // radioGenerateFreq
             // 
+            radioGenerateFreq.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             radioGenerateFreq.AutoSize = true;
             radioGenerateFreq.Checked = true;
             radioGenerateFreq.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic);
@@ -117,6 +119,7 @@
             // 
             // buttonSimulate
             // 
+            buttonSimulate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             buttonSimulate.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
             buttonSimulate.Location = new Point(286, 574);
             buttonSimulate.Name = "buttonSimulate";
@@ -151,6 +154,7 @@
             // 
             // labelSineFreq
             // 
+            labelSineFreq.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelSineFreq.AutoSize = true;
             labelSineFreq.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
             labelSineFreq.ForeColor = SystemColors.ControlLightLight;
@@ -162,6 +166,7 @@
             // 
             // labelMinLand
             // 
+            labelMinLand.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelMinLand.AutoSize = true;
             labelMinLand.ForeColor = SystemColors.ControlLightLight;
             labelMinLand.Location = new Point(31, 680);
@@ -172,6 +177,7 @@
             // 
             // labelSurfaceFilling
             // 
+            labelSurfaceFilling.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelSurfaceFilling.AutoSize = true;
             labelSurfaceFilling.ForeColor = SystemColors.ControlLightLight;
             labelSurfaceFilling.Location = new Point(89, 721);
@@ -182,6 +188,7 @@
             // 
             // textBoxMinLand
             // 
+            textBoxMinLand.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBoxMinLand.Location = new Point(201, 677);
             textBoxMinLand.Name = "textBoxMinLand";
             textBoxMinLand.ReadOnly = true;
@@ -190,6 +197,7 @@
             // 
             // textBoxSurfaceFilling
             // 
+            textBoxSurfaceFilling.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBoxSurfaceFilling.Location = new Point(201, 715);
             textBoxSurfaceFilling.Name = "textBoxSurfaceFilling";
             textBoxSurfaceFilling.ReadOnly = true;
@@ -198,6 +206,7 @@
             // 
             // panelLowFreqMixer
             // 
+            panelLowFreqMixer.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelLowFreqMixer.Controls.Add(textBoxLowFreqMixerGain);
             panelLowFreqMixer.Controls.Add(textBoxLowFreqMixerCutOffFrequency);
             panelLowFreqMixer.Controls.Add(labelLowFreqMixerGain);
@@ -245,6 +254,7 @@
             // 
             // checkBoxLowFreqMixer
             // 
+            checkBoxLowFreqMixer.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBoxLowFreqMixer.AutoSize = true;
             checkBoxLowFreqMixer.ForeColor = SystemColors.ControlLightLight;
             checkBoxLowFreqMixer.Location = new Point(12, 220);
@@ -257,6 +267,7 @@
             // 
             // checkBoxHiFreqLim
             // 
+            checkBoxHiFreqLim.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBoxHiFreqLim.AutoSize = true;
             checkBoxHiFreqLim.ForeColor = SystemColors.ControlLightLight;
             checkBoxHiFreqLim.Location = new Point(12, 329);
@@ -269,6 +280,7 @@
             // 
             // panelHiFreqLim
             // 
+            panelHiFreqLim.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterThreshold);
             panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterGain);
             panelHiFreqLim.Controls.Add(textBoxHiFreqLimiterCutOffFrequency);
@@ -336,6 +348,7 @@
             // 
             // checkBoxCompressor
             // 
+            checkBoxCompressor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBoxCompressor.AutoSize = true;
             checkBoxCompressor.ForeColor = SystemColors.ControlLightLight;
             checkBoxCompressor.Location = new Point(12, 438);
@@ -348,6 +361,7 @@
             // 
             // panelCompressor
             // 
+            panelCompressor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelCompressor.Controls.Add(textBoxCompressorGain);
             panelCompressor.Controls.Add(textBoxCompressorThreshold);
             panelCompressor.Controls.Add(labelCompressorGain);
@@ -395,6 +409,7 @@
             // 
             // textBoxMaxDepth
             // 
+            textBoxMaxDepth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBoxMaxDepth.Location = new Point(440, 715);
             textBoxMaxDepth.Name = "textBoxMaxDepth";
             textBoxMaxDepth.ReadOnly = true;
@@ -403,6 +418,7 @@
             // 
             // textBoxMinDepth
             // 
+            textBoxMinDepth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBoxMinDepth.Location = new Point(440, 677);
             textBoxMinDepth.Name = "textBoxMinDepth";
             textBoxMinDepth.ReadOnly = true;
@@ -411,6 +427,7 @@
             // 
             // labelMaxDepth
             // 
+            labelMaxDepth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelMaxDepth.AutoSize = true;
             labelMaxDepth.ForeColor = SystemColors.ControlLightLight;
             labelMaxDepth.Location = new Point(348, 718);
@@ -421,6 +438,7 @@
             // 
             // labelMinDepth
             // 
+            labelMinDepth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelMinDepth.AutoSize = true;
             labelMinDepth.ForeColor = SystemColors.ControlLightLight;
             labelMinDepth.Location = new Point(348, 680);
@@ -431,6 +449,7 @@
             // 
             // buttonPlot
             // 
+            buttonPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonPlot.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
             buttonPlot.Location = new Point(867, 730);
             buttonPlot.Name = "buttonPlot";
@@ -442,6 +461,7 @@
             // 
             // checkBoxRIAA
             // 
+            checkBoxRIAA.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBoxRIAA.AutoSize = true;
             checkBoxRIAA.ForeColor = SystemColors.ControlLightLight;
             checkBoxRIAA.Location = new Point(12, 178);
