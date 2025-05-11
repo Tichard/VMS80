@@ -207,6 +207,12 @@ namespace VMS80
             }
         }
 
+        public void get_data(Int64 a_data_position, Int64 a_data_size)
+        {
+            // TODO
+            Debug.WriteLine("Plotting data @" + a_data_position + " [" + a_data_size + "]\n");
+        }
+
         public float get_minimal_land()
         {
             return m_min_land;
@@ -230,6 +236,10 @@ namespace VMS80
             // Ex : 33.33rpm => 0.03min/revolution = 1.8sec/revolution
             // -> each revolution lasts (1/spin_speed) seconds so has (a_samplerate / spin_speed) samples
             m_samples_per_revolution = (Int64)(a_samplerate / spin_speed);
+        }
+        public Int64 get_revolution_size()
+        {
+            return m_samples_per_revolution;
         }
 
         private void export_results(float[] a_data, int a_nb_samples)
@@ -266,7 +276,7 @@ namespace VMS80
             */
         }
 
-        public void plot() { 
+        public void render_vinyl_view() { 
             // Execute Python script that will read the file
             Process python = new();
             python.StartInfo.FileName = @"python ";
@@ -304,23 +314,18 @@ namespace VMS80
                         {
                             case "r_start":
                                 vinyl_start = int.Parse(value);
-                                Debug.WriteLine(vinyl_start);
                                 break;
                             case "r_stop":
                                 vinyl_stop = int.Parse(value);
-                                Debug.WriteLine(vinyl_stop);
                                 break;
                             case "groove_fullscale":
                                 groove_fullscale = int.Parse(value);
-                                Debug.WriteLine(groove_fullscale);
                                 break;
                             case "stylus_width":
                                 stylus_width = int.Parse(value);
-                                Debug.WriteLine(stylus_width);
                                 break;
                             case "stylus_angle":
                                 stylus_angle = int.Parse(value);
-                                Debug.WriteLine(stylus_angle);
                                 break;
 
                             default:

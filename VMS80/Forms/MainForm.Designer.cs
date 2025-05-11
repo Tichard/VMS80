@@ -65,6 +65,7 @@
             labelMaxDepth = new Label();
             labelMinDepth = new Label();
             buttonPlot = new Button();
+            checkBoxRIAA = new CheckBox();
             panelLowFreqMixer.SuspendLayout();
             panelHiFreqLim.SuspendLayout();
             panelCompressor.SuspendLayout();
@@ -78,7 +79,7 @@
             textImportFilePath.ReadOnly = true;
             textImportFilePath.Size = new Size(310, 26);
             textImportFilePath.TabIndex = 3;
-            textImportFilePath.Text = "no file slected ...";
+            textImportFilePath.Text = "no file selected ...";
             // 
             // btnImportFile
             // 
@@ -98,7 +99,6 @@
             inputSineFreq.Name = "inputSineFreq";
             inputSineFreq.Size = new Size(61, 26);
             inputSineFreq.TabIndex = 4;
-            inputSineFreq.Text = "999.1";
             inputSineFreq.TextChanged += inputSineFreq_TextChanged;
             // 
             // radioGenerateFreq
@@ -106,7 +106,7 @@
             radioGenerateFreq.AutoSize = true;
             radioGenerateFreq.Checked = true;
             radioGenerateFreq.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic);
-            radioGenerateFreq.ForeColor = Color.White;
+            radioGenerateFreq.ForeColor = SystemColors.ControlLightLight;
             radioGenerateFreq.Location = new Point(576, 68);
             radioGenerateFreq.Name = "radioGenerateFreq";
             radioGenerateFreq.Size = new Size(257, 27);
@@ -118,7 +118,7 @@
             // buttonSimulate
             // 
             buttonSimulate.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            buttonSimulate.Location = new Point(296, 554);
+            buttonSimulate.Location = new Point(286, 574);
             buttonSimulate.Name = "buttonSimulate";
             buttonSimulate.Size = new Size(509, 58);
             buttonSimulate.TabIndex = 3;
@@ -130,7 +130,7 @@
             // 
             radioImportAudio.AutoSize = true;
             radioImportAudio.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic);
-            radioImportAudio.ForeColor = Color.White;
+            radioImportAudio.ForeColor = SystemColors.ControlLightLight;
             radioImportAudio.Location = new Point(30, 68);
             radioImportAudio.Name = "radioImportAudio";
             radioImportAudio.Size = new Size(237, 27);
@@ -142,7 +142,7 @@
             // 
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("Lucida Sans Unicode", 20F, FontStyle.Italic);
-            labelTitle.ForeColor = Color.White;
+            labelTitle.ForeColor = SystemColors.ControlLightLight;
             labelTitle.Location = new Point(56, 9);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(105, 34);
@@ -153,7 +153,7 @@
             // 
             labelSineFreq.AutoSize = true;
             labelSineFreq.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
-            labelSineFreq.ForeColor = Color.White;
+            labelSineFreq.ForeColor = SystemColors.ControlLightLight;
             labelSineFreq.Location = new Point(603, 116);
             labelSineFreq.Name = "labelSineFreq";
             labelSineFreq.Size = new Size(144, 17);
@@ -163,7 +163,7 @@
             // labelMinLand
             // 
             labelMinLand.AutoSize = true;
-            labelMinLand.ForeColor = Color.White;
+            labelMinLand.ForeColor = SystemColors.ControlLightLight;
             labelMinLand.Location = new Point(31, 680);
             labelMinLand.Name = "labelMinLand";
             labelMinLand.Size = new Size(164, 17);
@@ -173,7 +173,7 @@
             // labelSurfaceFilling
             // 
             labelSurfaceFilling.AutoSize = true;
-            labelSurfaceFilling.ForeColor = Color.White;
+            labelSurfaceFilling.ForeColor = SystemColors.ControlLightLight;
             labelSurfaceFilling.Location = new Point(89, 721);
             labelSurfaceFilling.Name = "labelSurfaceFilling";
             labelSurfaceFilling.Size = new Size(106, 17);
@@ -202,7 +202,7 @@
             panelLowFreqMixer.Controls.Add(textBoxLowFreqMixerCutOffFrequency);
             panelLowFreqMixer.Controls.Add(labelLowFreqMixerGain);
             panelLowFreqMixer.Controls.Add(labelLowFreqMixerCutOffFrequency);
-            panelLowFreqMixer.Location = new Point(12, 192);
+            panelLowFreqMixer.Location = new Point(12, 247);
             panelLowFreqMixer.Name = "panelLowFreqMixer";
             panelLowFreqMixer.Size = new Size(1061, 76);
             panelLowFreqMixer.TabIndex = 13;
@@ -226,7 +226,7 @@
             // labelLowFreqMixerGain
             // 
             labelLowFreqMixerGain.AutoSize = true;
-            labelLowFreqMixerGain.ForeColor = Color.White;
+            labelLowFreqMixerGain.ForeColor = SystemColors.ControlLightLight;
             labelLowFreqMixerGain.Location = new Point(816, 30);
             labelLowFreqMixerGain.Name = "labelLowFreqMixerGain";
             labelLowFreqMixerGain.Size = new Size(70, 17);
@@ -236,7 +236,7 @@
             // labelLowFreqMixerCutOffFrequency
             // 
             labelLowFreqMixerCutOffFrequency.AutoSize = true;
-            labelLowFreqMixerCutOffFrequency.ForeColor = Color.White;
+            labelLowFreqMixerCutOffFrequency.ForeColor = SystemColors.ControlLightLight;
             labelLowFreqMixerCutOffFrequency.Location = new Point(44, 30);
             labelLowFreqMixerCutOffFrequency.Name = "labelLowFreqMixerCutOffFrequency";
             labelLowFreqMixerCutOffFrequency.Size = new Size(168, 17);
@@ -246,8 +246,8 @@
             // checkBoxLowFreqMixer
             // 
             checkBoxLowFreqMixer.AutoSize = true;
-            checkBoxLowFreqMixer.ForeColor = Color.White;
-            checkBoxLowFreqMixer.Location = new Point(12, 165);
+            checkBoxLowFreqMixer.ForeColor = SystemColors.ControlLightLight;
+            checkBoxLowFreqMixer.Location = new Point(12, 220);
             checkBoxLowFreqMixer.Name = "checkBoxLowFreqMixer";
             checkBoxLowFreqMixer.Size = new Size(176, 21);
             checkBoxLowFreqMixer.TabIndex = 14;
@@ -258,8 +258,8 @@
             // checkBoxHiFreqLim
             // 
             checkBoxHiFreqLim.AutoSize = true;
-            checkBoxHiFreqLim.ForeColor = Color.White;
-            checkBoxHiFreqLim.Location = new Point(12, 274);
+            checkBoxHiFreqLim.ForeColor = SystemColors.ControlLightLight;
+            checkBoxHiFreqLim.Location = new Point(12, 329);
             checkBoxHiFreqLim.Name = "checkBoxHiFreqLim";
             checkBoxHiFreqLim.Size = new Size(189, 21);
             checkBoxHiFreqLim.TabIndex = 16;
@@ -275,7 +275,7 @@
             panelHiFreqLim.Controls.Add(labelHiFreqLimThreshold);
             panelHiFreqLim.Controls.Add(labelHiFreqLimGain);
             panelHiFreqLim.Controls.Add(labelHiFreqLimCutOffFrequency);
-            panelHiFreqLim.Location = new Point(12, 301);
+            panelHiFreqLim.Location = new Point(12, 356);
             panelHiFreqLim.Name = "panelHiFreqLim";
             panelHiFreqLim.Size = new Size(1061, 76);
             panelHiFreqLim.TabIndex = 15;
@@ -307,7 +307,7 @@
             // labelHiFreqLimThreshold
             // 
             labelHiFreqLimThreshold.AutoSize = true;
-            labelHiFreqLimThreshold.ForeColor = Color.White;
+            labelHiFreqLimThreshold.ForeColor = SystemColors.ControlLightLight;
             labelHiFreqLimThreshold.Location = new Point(432, 35);
             labelHiFreqLimThreshold.Name = "labelHiFreqLimThreshold";
             labelHiFreqLimThreshold.Size = new Size(109, 17);
@@ -317,7 +317,7 @@
             // labelHiFreqLimGain
             // 
             labelHiFreqLimGain.AutoSize = true;
-            labelHiFreqLimGain.ForeColor = Color.White;
+            labelHiFreqLimGain.ForeColor = SystemColors.ControlLightLight;
             labelHiFreqLimGain.Location = new Point(816, 35);
             labelHiFreqLimGain.Name = "labelHiFreqLimGain";
             labelHiFreqLimGain.Size = new Size(70, 17);
@@ -327,7 +327,7 @@
             // labelHiFreqLimCutOffFrequency
             // 
             labelHiFreqLimCutOffFrequency.AutoSize = true;
-            labelHiFreqLimCutOffFrequency.ForeColor = Color.White;
+            labelHiFreqLimCutOffFrequency.ForeColor = SystemColors.ControlLightLight;
             labelHiFreqLimCutOffFrequency.Location = new Point(44, 35);
             labelHiFreqLimCutOffFrequency.Name = "labelHiFreqLimCutOffFrequency";
             labelHiFreqLimCutOffFrequency.Size = new Size(168, 17);
@@ -337,8 +337,8 @@
             // checkBoxCompressor
             // 
             checkBoxCompressor.AutoSize = true;
-            checkBoxCompressor.ForeColor = Color.White;
-            checkBoxCompressor.Location = new Point(12, 383);
+            checkBoxCompressor.ForeColor = SystemColors.ControlLightLight;
+            checkBoxCompressor.Location = new Point(12, 438);
             checkBoxCompressor.Name = "checkBoxCompressor";
             checkBoxCompressor.Size = new Size(111, 21);
             checkBoxCompressor.TabIndex = 18;
@@ -352,7 +352,7 @@
             panelCompressor.Controls.Add(textBoxCompressorThreshold);
             panelCompressor.Controls.Add(labelCompressorGain);
             panelCompressor.Controls.Add(labelCompressorThreshold);
-            panelCompressor.Location = new Point(12, 410);
+            panelCompressor.Location = new Point(12, 465);
             panelCompressor.Name = "panelCompressor";
             panelCompressor.Size = new Size(1061, 76);
             panelCompressor.TabIndex = 17;
@@ -376,7 +376,7 @@
             // labelCompressorGain
             // 
             labelCompressorGain.AutoSize = true;
-            labelCompressorGain.ForeColor = Color.White;
+            labelCompressorGain.ForeColor = SystemColors.ControlLightLight;
             labelCompressorGain.Location = new Point(816, 30);
             labelCompressorGain.Name = "labelCompressorGain";
             labelCompressorGain.Size = new Size(70, 17);
@@ -386,7 +386,7 @@
             // labelCompressorThreshold
             // 
             labelCompressorThreshold.AutoSize = true;
-            labelCompressorThreshold.ForeColor = Color.White;
+            labelCompressorThreshold.ForeColor = SystemColors.ControlLightLight;
             labelCompressorThreshold.Location = new Point(432, 30);
             labelCompressorThreshold.Name = "labelCompressorThreshold";
             labelCompressorThreshold.Size = new Size(109, 17);
@@ -412,7 +412,7 @@
             // labelMaxDepth
             // 
             labelMaxDepth.AutoSize = true;
-            labelMaxDepth.ForeColor = Color.White;
+            labelMaxDepth.ForeColor = SystemColors.ControlLightLight;
             labelMaxDepth.Location = new Point(348, 718);
             labelMaxDepth.Name = "labelMaxDepth";
             labelMaxDepth.Size = new Size(86, 17);
@@ -422,7 +422,7 @@
             // labelMinDepth
             // 
             labelMinDepth.AutoSize = true;
-            labelMinDepth.ForeColor = Color.White;
+            labelMinDepth.ForeColor = SystemColors.ControlLightLight;
             labelMinDepth.Location = new Point(348, 680);
             labelMinDepth.Name = "labelMinDepth";
             labelMinDepth.Size = new Size(82, 17);
@@ -432,13 +432,25 @@
             // buttonPlot
             // 
             buttonPlot.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            buttonPlot.Location = new Point(736, 689);
+            buttonPlot.Location = new Point(867, 730);
             buttonPlot.Name = "buttonPlot";
-            buttonPlot.Size = new Size(281, 54);
+            buttonPlot.Size = new Size(206, 47);
             buttonPlot.TabIndex = 23;
             buttonPlot.Text = "Plot results";
             buttonPlot.UseVisualStyleBackColor = true;
             buttonPlot.Click += buttonPlot_Click;
+            // 
+            // checkBoxRIAA
+            // 
+            checkBoxRIAA.AutoSize = true;
+            checkBoxRIAA.ForeColor = SystemColors.ControlLightLight;
+            checkBoxRIAA.Location = new Point(12, 178);
+            checkBoxRIAA.Name = "checkBoxRIAA";
+            checkBoxRIAA.Size = new Size(127, 21);
+            checkBoxRIAA.TabIndex = 24;
+            checkBoxRIAA.Text = "RIAA pre-filter";
+            checkBoxRIAA.UseVisualStyleBackColor = true;
+            checkBoxRIAA.CheckedChanged += checkBoxRIAA_CheckedChanged;
             // 
             // MainForm
             // 
@@ -446,6 +458,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1085, 789);
+            Controls.Add(checkBoxRIAA);
             Controls.Add(buttonPlot);
             Controls.Add(textBoxMaxDepth);
             Controls.Add(textBoxMinDepth);
@@ -521,5 +534,6 @@
         private Label labelMaxDepth;
         private Label labelMinDepth;
         private Button buttonPlot;
+        private CheckBox checkBoxRIAA;
     }
 }

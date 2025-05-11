@@ -5,7 +5,6 @@ namespace VMS80
 {
     public partial class MainForm : Form
     {
-        private readonly AudioReader m_audio_reader;
         private readonly Plugins m_plugins;
         private readonly Simulator m_simulator;
 
@@ -15,7 +14,6 @@ namespace VMS80
         {
             InitializeComponent();
 
-            m_audio_reader = new AudioReader();
             m_plugins = new Plugins();
             m_simulator = new Simulator();
 
@@ -23,6 +21,7 @@ namespace VMS80
             m_filepath = "";
 
             // Sync form plugins panels
+            checkBoxRIAA.Checked = m_plugins.m_riaa_enable;
             checkBoxLowFreqMixer.Checked = m_plugins.m_low_freq_mixer_enable;
             panelLowFreqMixer.Enabled = checkBoxLowFreqMixer.Checked;
             checkBoxHiFreqLim.Checked = m_plugins.m_hi_freq_limiter_enable;
@@ -39,6 +38,12 @@ namespace VMS80
             textBoxCompressorGain.Text = m_plugins.m_compressor.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
 
             inputSineFreq.Text = 100.ToString(CultureInfo.InvariantCulture);  // Perfectly fitted groove
+        }
+
+        ~MainForm()
+        {
+            // Destroy generated file by simulation
+            m_simulator.clear_results();
         }
 
         public void simulate()
@@ -117,18 +122,29 @@ namespace VMS80
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
+            // Set cursor as waiting
+            Cursor.Current = Cursors.WaitCursor;
+
             simulate();
 
             textBoxMinLand.Text = m_simulator.get_minimal_land().ToString("0.00um");
             textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
             textBoxMinDepth.Text = m_simulator.get_minimal_depth().ToString("0.00um");
             textBoxMaxDepth.Text = m_simulator.get_maximal_depth().ToString("0.00um");
+
+            // Restore cursor
+            Cursor.Current = Cursors.Default;
         }
 
         private void buttonPlot_Click(object sender, EventArgs e)
         {
-            m_simulator.plot();
-            m_simulator.clear_results();
+            PlotForm the_plot = new(m_simulator);
+            the_plot.Show();
+        }
+
+        private void checkBoxRIAA_CheckedChanged(object sender, EventArgs e)
+        {
+            m_plugins.m_riaa_enable = checkBoxRIAA.Checked;
         }
 
         private void checkBoxLowFreqMixer_CheckedChanged(object sender, EventArgs e)

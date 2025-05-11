@@ -35,7 +35,8 @@ This needs Python to be installed with matplotlib on the machine.
 - [AudioReader.cs](VMS80/Classes/AudioReader.cs) : Import an audio file.
  
 ### *Forms* - source forms files
-- [VMS80.cs](VMS80/Forms/vms80.cs) : Main Windows Form of the executable.
+- [MainForm.cs](VMS80/Forms/MainForm.cs) : Main Windows Form of the executable.
+- [PlotForm.cs](VMS80/Forms/MainForm.cs) : Sub Windows Form to show the computed pitch control and resulting land achieved.
 
 ### *Python* - source Pyhton scripts
 - [Plot.py](VMS80/Python/plot.py) : Parse the data file and plot the simulation results.
