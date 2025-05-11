@@ -21,7 +21,7 @@ namespace VMS80
             m_filepath = "";
 
             // Sync form plugins panels
-            checkBoxRIAA.Checked = m_plugins.m_riaa_enable;
+            checkBoxRIAA.Checked = m_plugins.m_riaa_filter_enable;
             checkBoxLowFreqMixer.Checked = m_plugins.m_low_freq_mixer_enable;
             panelLowFreqMixer.Enabled = checkBoxLowFreqMixer.Checked;
             checkBoxHiFreqLim.Checked = m_plugins.m_hi_freq_limiter_enable;
@@ -144,7 +144,7 @@ namespace VMS80
 
         private void checkBoxRIAA_CheckedChanged(object sender, EventArgs e)
         {
-            m_plugins.m_riaa_enable = checkBoxRIAA.Checked;
+            m_plugins.m_riaa_filter_enable = checkBoxRIAA.Checked;
         }
 
         private void checkBoxLowFreqMixer_CheckedChanged(object sender, EventArgs e)
