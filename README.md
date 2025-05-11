@@ -37,14 +37,14 @@ This needs Python to be installed with matplotlib on the machine.
  
 ### *Forms* - source forms files
 - [MainForm.cs](VMS80/Forms/MainForm.cs) : Main Windows Form of the executable.
-- [PlotForm.cs](VMS80/Forms/MainForm.cs) : Sub Windows Form to show the computed pitch control and resulting land achieved.
+- [PlotForm.cs](VMS80/Forms/PlotForm.cs) : Sub Windows Form to show the computed pitch control and resulting land achieved.
 
-### *Python* - source Pyhton scripts
+### *Python* - source Python scripts
 - [Plot.py](VMS80/Python/plot.py) : Parse the data file and plot the simulated polar view of the vinyl.
 
 ## Future steps
 
-In order to improve the signal shape to cut into the vinyl disk, some processing can be added to control the velocity and the acceleration of the stylus.
+In order to improve the signal shape to cut into the vinyl support, some processing can be added to control the velocity and the acceleration of the stylus.
 
 The skeleton of some of these audio processing plugins are already added into code but need to be developed in a future time.
 
