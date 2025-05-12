@@ -5,4 +5,4 @@ r_stop=150
 stylus_width=70
 stylus_angle=45
 
-groove_fullscale=30
+groove_fullscale=20

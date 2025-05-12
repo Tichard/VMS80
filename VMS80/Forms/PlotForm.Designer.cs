@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             chartGroove = new System.Windows.Forms.DataVisualization.Charting.Chart();
             buttonZoomOut = new Button();
             buttonZoomIn = new Button();
@@ -44,8 +44,8 @@
             // chartGroove
             // 
             chartGroove.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            legend1.Name = "Legend";
-            chartGroove.Legends.Add(legend1);
+            legend4.Name = "Legend";
+            chartGroove.Legends.Add(legend4);
             chartGroove.Location = new Point(89, 50);
             chartGroove.Name = "chartGroove";
             chartGroove.Size = new Size(989, 450);
@@ -98,11 +98,11 @@
             labelRender.AutoSize = true;
             labelRender.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
             labelRender.ForeColor = SystemColors.ControlLightLight;
-            labelRender.Location = new Point(948, 593);
+            labelRender.Location = new Point(942, 593);
             labelRender.Name = "labelRender";
-            labelRender.Size = new Size(207, 17);
+            labelRender.Size = new Size(213, 17);
             labelRender.TabIndex = 4;
-            labelRender.Text = "* Python / MathPlot Required";
+            labelRender.Text = "* Python (matplotlib) required";
             // 
             // buttonPrev
             // 

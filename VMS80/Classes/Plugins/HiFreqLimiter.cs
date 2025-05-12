@@ -94,10 +94,10 @@ namespace VMS80.Plugin
         {
             m_cutoff_frequency = a_cutoff_frequency;
 
-            m_low_pass_L.init_low_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
-            m_hi_pass_L.init_hi_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
-            m_low_pass_R.init_low_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
-            m_hi_pass_R.init_hi_pass((float)a_cutoff_frequency / m_samplerate, nb_biquad);
+            m_low_pass_L.init_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_hi_pass_L.init_hi_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_low_pass_R.init_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_hi_pass_R.init_hi_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
         }
 
         public float get_gain()

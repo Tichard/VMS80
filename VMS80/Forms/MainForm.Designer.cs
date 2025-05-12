@@ -466,9 +466,9 @@
             checkBoxRIAA.ForeColor = SystemColors.ControlLightLight;
             checkBoxRIAA.Location = new Point(12, 178);
             checkBoxRIAA.Name = "checkBoxRIAA";
-            checkBoxRIAA.Size = new Size(127, 21);
+            checkBoxRIAA.Size = new Size(159, 21);
             checkBoxRIAA.TabIndex = 24;
-            checkBoxRIAA.Text = "RIAA pre-filter";
+            checkBoxRIAA.Text = "RIAA Pre-Emphasis";
             checkBoxRIAA.UseVisualStyleBackColor = true;
             checkBoxRIAA.CheckedChanged += checkBoxRIAA_CheckedChanged;
             // 

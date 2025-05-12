@@ -41,7 +41,7 @@ namespace VMS80
 
             stylus_width = 70; // um
             stylus_angle = 45; // um
-            groove_fullscale = 10; // um
+            groove_fullscale = 1; // um
 
             spin_speed = (float)(100.0/180.0); // 33.3rpm in seconds
             land = 10; // um
