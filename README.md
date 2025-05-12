@@ -28,7 +28,7 @@ This needs Python to be installed with matplotlib on the machine.
 ### *Classes* - source code files
 - [Simulator.cs](VMS80/Classes/Simulator.cs) : Computes the pitch-control for the given audio based on the config file.
 - [Plugins.cs](VMS80/Classes/Plugins.cs) : Controls and apply audio plugins.
-    - [Biquad.cs](VMS80/Classes/Plugins/Biquad.cs) : Applies a series of LPF/HPF Butterworth 2nd order IIR to a signal with a given cut-off frequency.
+    - [Biquad.cs](VMS80/Classes/Plugins/Biquad.cs) : Generic biquadratic (2nd order) IIR filter for applying a series of LPF/HPF Butterworth to a signal with a given cut-off frequency, or a RIAA emphasis filter.
     - [RiaaFilter.cs](VMS80/Classes/Plugins/RiaaFilter.cs) : Applies the RIAA pre-emphasis filter required for vinyl audio.
     - [LowFreqMixer.cs](VMS80/Classes/Plugins/LowFreqMixer.cs) : Sums the low frequencies stereo signal into mono to limit groove depth.
     - [HiFreqLimiter.cs](VMS80/Classes/Plugins/HiFreqLimiter.cs) : #TODO
