@@ -11,8 +11,8 @@ namespace VMS80.Plugin
 
         private readonly Biquad m_low_pass_L;
         private readonly Biquad m_low_pass_R;
-        private readonly Biquad m_hi_pass_L;
-        private readonly Biquad m_hi_pass_R;
+        private readonly Biquad m_high_pass_L;
+        private readonly Biquad m_high_pass_R;
 
         private readonly int nb_biquad = 4;
 
@@ -20,8 +20,8 @@ namespace VMS80.Plugin
         {
             m_low_pass_L = new Biquad();
             m_low_pass_R = new Biquad();
-            m_hi_pass_L = new Biquad();
-            m_hi_pass_R = new Biquad();
+            m_high_pass_L = new Biquad();
+            m_high_pass_R = new Biquad();
 
             // Default value
             set_cutoff_frequency(200);
@@ -38,9 +38,9 @@ namespace VMS80.Plugin
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
                     low_L = m_low_pass_L.process(a_data[2 * i + 0]);
-                    high_L = m_hi_pass_L.process(a_data[2 * i + 0]);
+                    high_L = m_high_pass_L.process(a_data[2 * i + 0]);
                     low_R = m_low_pass_R.process(a_data[2 * i + 1]);
-                    high_R = m_hi_pass_R.process(a_data[2 * i + 1]);
+                    high_R = m_high_pass_R.process(a_data[2 * i + 1]);
 
                     // Mix the low bands to get Mono
                     low_mono = (low_L + low_R) / 2;
@@ -74,10 +74,11 @@ namespace VMS80.Plugin
         {
             m_cutoff_frequency = a_cutoff_frequency;
 
-            m_low_pass_L.init_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
-            m_hi_pass_L.init_hi_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
-            m_low_pass_R.init_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
-            m_hi_pass_R.init_hi_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            // Sum of even number of Butterworth 2nd-order filters results in a perfeclty flat amplitude response
+            m_low_pass_L.init_butterworth_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_high_pass_L.init_butterworth_high_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_low_pass_R.init_butterworth_low_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
+            m_high_pass_R.init_butterworth_high_pass(a_cutoff_frequency, m_samplerate, nb_biquad);
         }
 
         public float get_gain()

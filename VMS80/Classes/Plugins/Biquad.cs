@@ -3,16 +3,15 @@ namespace VMS80.Plugin
 {
     internal class Biquad
     {
-        // LowPass and HiPass use a series of Butterworth 2nd order filters because :
-        // * 2nd order is always stable
-        // * Butterworth even-order filers can be summed up with a perfeclty flat amplitude response
+        // Biquadratic filters (2nd order) are known to be always stable.
+        // So safe higher order filtering is achieved by serializing biquads
 
         private int m_nb_biqud;
 
         private double[] coeffs = [];
         private double[] buffer = [];
 
-        public void init_low_pass(int a_frequency, int a_samplerate, int a_nb_biqud)
+        public void init_butterworth_low_pass(int a_frequency, int a_samplerate, int a_nb_biqud)
         {
             m_nb_biqud = a_nb_biqud;
             int nb_coeffs = m_nb_biqud * 5;
@@ -21,7 +20,7 @@ namespace VMS80.Plugin
             double a1, a2, b0, b1, b2;
             double ita, q, g;
 
-            // LPF Butterworth Biquad
+            // LPF Butterworth 2nd order
             ita = 1.0 / Math.Tan(Math.PI * a_frequency / a_samplerate);
             q = Math.Sqrt(2.0);
             g = 1.0 / (1.0 + q * ita + ita * ita); // a0 normalization
@@ -51,7 +50,7 @@ namespace VMS80.Plugin
             }
         }
 
-        public void init_hi_pass(int a_frequency, int a_samplerate, int a_nb_biqud)
+        public void init_butterworth_high_pass(int a_frequency, int a_samplerate, int a_nb_biqud)
         {
             m_nb_biqud = a_nb_biqud;
             int nb_coeffs = m_nb_biqud * 5;
@@ -60,7 +59,7 @@ namespace VMS80.Plugin
             double a1, a2, b0, b1, b2;
             double ita, q, g;
 
-            // HPF Butterworth Biquad
+            // HPF Butterworth 2nd order
             ita = 1.0 / Math.Tan(Math.PI * a_frequency / a_samplerate);
             q = Math.Sqrt(2.0);
             g = 1.0 / (1.0 + q * ita + ita * ita); // a0 normalization
@@ -92,7 +91,7 @@ namespace VMS80.Plugin
 
         public void init_riaa(int a_samplerate)
         {
-            m_nb_biqud = 1; // 1 biquad for RIAA pre-emphasis
+            m_nb_biqud = 1; // 1 biquad for RIAA emphasis
             int nb_coeffs = m_nb_biqud * 5;
             int nb_buffer = m_nb_biqud * 2;
             double p0, p1, p2, q0, q1, q2;
@@ -101,7 +100,7 @@ namespace VMS80.Plugin
             double num, den, gain;
             double K  = 2.0 * a_samplerate;
 
-            // RIAA corner angualar frequencies
+            // RIAA corner angular frequencies
             w1 = 1.0 / (2 * Math.PI * 50.05);
             w2 = 1.0 / (2 * Math.PI * 500.5);
             w3 = 1.0 / (2 * Math.PI * 2122.0);
@@ -141,7 +140,7 @@ namespace VMS80.Plugin
                 + 2.0 * ((b0 * b1) + (b1 * b2)) * Math.Cos(w_ref)
                 + 2.0 * (b0 * b2) * Math.Cos(2.0 * w_ref);
             den = (a0 * a0) + (a1 * a1) + (a2 * a2)
-                + 2.0 * (a0 * a1 + a1 * a2) * Math.Cos(w_ref)
+                + 2.0 * ((a0 * a1) + (a1 * a2)) * Math.Cos(w_ref)
                 + 2.0 * (a0 * a2) * Math.Cos(2.0 * w_ref);
             gain = Math.Sqrt(num / den);
             // Only to numerator

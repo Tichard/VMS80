@@ -1,8 +1,8 @@
-% LATHE CONSTANTS
+# LATHE CONSTANTS
 r_start=300
 r_stop=150
 
 stylus_width=70
 stylus_angle=45
 
-groove_fullscale=20
+#groove_fullscale=10
