@@ -43,6 +43,9 @@ namespace VMS80
             stylus_angle = 45; // um
             groove_fullscale = 1; // um
 
+            // Kissing groove best value to have 0-depth on out-of-phase 0dBFS signal
+            groove_fullscale = (int)Math.Ceiling(Math.Cos(stylus_angle * Math.PI / 180.0) * (stylus_width)) - 1; // um
+
             spin_speed = (float)(100.0/180.0); // 33.3rpm in seconds
             land = 10; // um
 
@@ -67,7 +70,7 @@ namespace VMS80
         private void compute_groove(float[] a_data, int a_nb_samples, int a_nb_channels)
         {
             double stylus_radian = stylus_angle * Math.PI / 180.0;
-            float modulation = (float)Math.Sin(stylus_radian) * (float)groove_fullscale;
+            float modulation = (float)Math.Sin(stylus_radian) * groove_fullscale;
             double depth_ratio = 1.0 / (2.0 * Math.Tan(stylus_radian / 2.0));
             float depth = stylus_width * (float)depth_ratio;
             m_min_depth = depth;
