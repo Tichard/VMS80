@@ -66,6 +66,7 @@
             labelMinDepth = new Label();
             buttonPlot = new Button();
             checkBoxRIAA = new CheckBox();
+            checkBoxPhase = new CheckBox();
             panelLowFreqMixer.SuspendLayout();
             panelHiFreqLim.SuspendLayout();
             panelCompressor.SuspendLayout();
@@ -472,12 +473,25 @@
             checkBoxRIAA.UseVisualStyleBackColor = true;
             checkBoxRIAA.CheckedChanged += checkBoxRIAA_CheckedChanged;
             // 
+            // checkBoxPhase
+            // 
+            checkBoxPhase.AutoSize = true;
+            checkBoxPhase.Font = new Font("Lucida Sans Unicode", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxPhase.ForeColor = SystemColors.ControlLightLight;
+            checkBoxPhase.Location = new Point(828, 111);
+            checkBoxPhase.Name = "checkBoxPhase";
+            checkBoxPhase.Size = new Size(40, 24);
+            checkBoxPhase.TabIndex = 25;
+            checkBoxPhase.Text = "Ø";
+            checkBoxPhase.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1085, 789);
+            Controls.Add(checkBoxPhase);
             Controls.Add(checkBoxRIAA);
             Controls.Add(buttonPlot);
             Controls.Add(textBoxMaxDepth);
@@ -555,5 +569,6 @@
         private Label labelMinDepth;
         private Button buttonPlot;
         private CheckBox checkBoxRIAA;
+        private CheckBox checkBoxPhase;
     }
 }

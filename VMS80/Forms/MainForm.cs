@@ -81,14 +81,15 @@ namespace VMS80
         {
             a_data = new float[a_nb_samples * a_nb_channels];
             float the_gen_frequency = float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
+            float the_phase = checkBoxPhase.Checked ? -1 : 1;
             Debug.WriteLine("Generating " + the_gen_frequency + "Hz frequency");
 
             if (a_nb_channels == 2)
             {
                 for (int i = 0; i < a_nb_samples; ++i)
                 {
-                    a_data[2 * i + 0] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
-                    a_data[2 * i + 1] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
+                    a_data[2 * i] = (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
+                    a_data[2 * i + 1] = the_phase * (float)Math.Sin(2.0 * Math.PI * the_gen_frequency * i / a_samplerate);
                 }
             }
             else
