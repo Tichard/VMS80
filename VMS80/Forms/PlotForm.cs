@@ -111,14 +111,15 @@ namespace VMS80
 
             for (Int64 i = 0; i < data_size; ++i)
             {
-                m_groove_prev_outer.Points.AddXY(i, prev_goove[i][0]);
-                m_groove_prev_inner.Points.AddXY(i, prev_goove[i][1]);
+                Int64 x = data_index + i;
+                m_groove_prev_outer.Points.AddXY(x, prev_goove[i][0]);
+                m_groove_prev_inner.Points.AddXY(x, prev_goove[i][1]);
 
-                m_groove_current_outer.Points.AddXY(i, current_goove[i][0]);
-                m_groove_current_inner.Points.AddXY(i, current_goove[i][1]);
+                m_groove_current_outer.Points.AddXY(x, current_goove[i][0]);
+                m_groove_current_inner.Points.AddXY(x, current_goove[i][1]);
 
-                m_groove_next_outer.Points.AddXY(i, next_goove[i][0]);
-                m_groove_next_inner.Points.AddXY(i, next_goove[i][1]);
+                m_groove_next_outer.Points.AddXY(x, next_goove[i][0]);
+                m_groove_next_inner.Points.AddXY(x, next_goove[i][1]);
             }
 
             m_groove_area.RecalculateAxesScale();

@@ -41,7 +41,6 @@ namespace VMS80
 
             stylus_width = 70; // um
             stylus_angle = 45; // um
-            groove_fullscale = 1; // um
 
             // Kissing groove best value to have 0-depth on out-of-phase 0dBFS signal
             groove_fullscale = (int)Math.Ceiling(Math.Cos(stylus_angle * Math.PI / 180.0) * (stylus_width)) - 1; // um
@@ -258,7 +257,7 @@ namespace VMS80
             // Because spin speed is constant, a rotation at every radius has the exact same duration
             // Ex : 33.33rpm => 0.03min/revolution = 1.8sec/revolution
             // -> each revolution lasts (1/spin_speed) seconds so has (a_samplerate / spin_speed) samples
-            m_samples_per_revolution = (Int64)(a_samplerate / spin_speed);
+            m_samples_per_revolution = (Int64)(a_samplerate / spin_speed) + 1;
         }
         public Int64 get_revolution_size()
         {
