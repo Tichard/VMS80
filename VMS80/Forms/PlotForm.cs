@@ -1,10 +1,12 @@
-﻿using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Diagnostics;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace VMS80
 {
     internal partial class PlotForm : Form
     {
         private readonly Simulator m_simulator;
+        private readonly int base_div = 4; // Quarter revolution
 
         private int m_subsection_div;
         private int m_subsection_index;
@@ -24,7 +26,7 @@ namespace VMS80
             m_simulator = a_simulator;
 
             m_subsection_div = 1;
-            m_subsection_index = 0;
+            m_subsection_index = base_div;
             textBoxZoom.Text = m_subsection_div.ToString("x 0");
 
             // Init Series
@@ -89,14 +91,20 @@ namespace VMS80
             plot();
         }
 
-        private void plot()
+        private bool plot()
         {
+            Int64 revolution_size = m_simulator.get_revolution_size();
+            Int64 data_size = revolution_size / (m_subsection_div * base_div);
+            Int64 data_index = data_size * m_subsection_index;
+
+            if ((data_index < revolution_size) || (data_index + revolution_size + data_size > m_simulator.get_computed_samples()))
+            {
+                Debug.WriteLine("Subsection out-of-bound.\n");
+                return false;
+            }
+
             // Set cursor as waiting
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-
-            Int64 revolution_size = m_simulator.get_revolution_size();
-            Int64 data_size = revolution_size / (m_subsection_div * 4); // quarter revolution
-            Int64 data_index = data_size * m_subsection_index;
 
             m_groove_prev_outer.Points.Clear();
             m_groove_prev_inner.Points.Clear();
@@ -128,6 +136,7 @@ namespace VMS80
 
             // Restore cursor
             System.Windows.Forms.Cursor.Current = Cursors.Default;
+            return true;
         }
 
         private void buttonZoomOut_Click(object sender, EventArgs e)
@@ -139,7 +148,11 @@ namespace VMS80
             m_subsection_index /= 2;
             textBoxZoom.Text = m_subsection_div.ToString("x 0");
 
-            plot();
+            while(!plot())
+            {
+                // Fall-back to previous subsection
+                m_subsection_index -= 1;
+            }
         }
 
         private void buttonZoomIn_Click(object sender, EventArgs e)
@@ -151,19 +164,27 @@ namespace VMS80
             m_subsection_index *= 2;
             textBoxZoom.Text = m_subsection_div.ToString("x 0");
 
-            plot();
+            plot(); // Always success
         }
 
         private void buttonPrev_Click(object sender, EventArgs e)
         {
             m_subsection_index -= 1;
-            plot();
+            if(!plot())
+            {
+                // Revert if subsection is out of bound
+                m_subsection_index += 1;
+            }
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
             m_subsection_index += 1;
-            plot();
+            if (!plot())
+            {
+                // Revert if subsection is out of bound
+                m_subsection_index -= 1;
+            }
         }
 
         private void buttonRender_Click(object sender, EventArgs e)

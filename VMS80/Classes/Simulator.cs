@@ -198,21 +198,11 @@ namespace VMS80
             double outer_groove, inner_groove;
             double r_start = vinyl_start * 1000;
 
-            if (a_data_index >= 0)
+            for (Int64 idx = a_data_index; idx < a_data_index + a_data_size; ++idx)
             {
-                for (Int64 idx = a_data_index; idx < a_data_index + a_data_size; ++idx)
-                {
-                    outer_groove = r_start - m_pitch[idx] - m_groove[2 * idx];
-                    inner_groove = r_start - m_pitch[idx] - m_groove[2 * idx + 1];
-                    section[idx - a_data_index] = [outer_groove, inner_groove];
-                }
-            }
-            else
-            {
-                for (Int64 idx = 0; idx < a_data_size; ++idx)
-                {
-                    section[idx] = [Double.NaN, Double.NaN];
-                }
+                outer_groove = r_start - m_pitch[idx] - m_groove[2 * idx];
+                inner_groove = r_start - m_pitch[idx] - m_groove[2 * idx + 1];
+                section[idx - a_data_index] = [outer_groove, inner_groove];
             }
 
             return section;
@@ -233,6 +223,10 @@ namespace VMS80
         public float get_maximal_depth()
         {
             return m_max_depth;
+        }
+        public Int64 get_computed_samples()
+        {
+            return m_computed_samples;
         }
 
         public void set_samplerate(int a_samplerate)
