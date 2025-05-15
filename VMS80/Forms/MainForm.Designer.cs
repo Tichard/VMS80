@@ -67,6 +67,8 @@
             buttonPlot = new Button();
             checkBoxRIAA = new CheckBox();
             checkBoxPhase = new CheckBox();
+            labelTargetLand = new Label();
+            inputTargetLand = new TextBox();
             panelLowFreqMixer.SuspendLayout();
             panelHiFreqLim.SuspendLayout();
             panelCompressor.SuspendLayout();
@@ -122,9 +124,9 @@
             // 
             buttonSimulate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             buttonSimulate.Font = new Font("Lucida Sans Unicode", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            buttonSimulate.Location = new Point(286, 574);
+            buttonSimulate.Location = new Point(360, 574);
             buttonSimulate.Name = "buttonSimulate";
-            buttonSimulate.Size = new Size(509, 58);
+            buttonSimulate.Size = new Size(373, 58);
             buttonSimulate.TabIndex = 3;
             buttonSimulate.Text = "Simulate";
             buttonSimulate.UseVisualStyleBackColor = true;
@@ -485,12 +487,35 @@
             checkBoxPhase.Text = "Ø";
             checkBoxPhase.UseVisualStyleBackColor = true;
             // 
+            // labelTargetLand
+            // 
+            labelTargetLand.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelTargetLand.AutoSize = true;
+            labelTargetLand.Font = new Font("Lucida Sans Unicode", 10F, FontStyle.Italic);
+            labelTargetLand.ForeColor = SystemColors.ControlLightLight;
+            labelTargetLand.Location = new Point(72, 598);
+            labelTargetLand.Name = "labelTargetLand";
+            labelTargetLand.Size = new Size(123, 17);
+            labelTargetLand.TabIndex = 27;
+            labelTargetLand.Text = "Target land (μm)";
+            // 
+            // inputTargetLand
+            // 
+            inputTargetLand.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            inputTargetLand.Font = new Font("Lucida Sans Unicode", 9F, FontStyle.Italic);
+            inputTargetLand.Location = new Point(201, 595);
+            inputTargetLand.Name = "inputTargetLand";
+            inputTargetLand.Size = new Size(61, 26);
+            inputTargetLand.TabIndex = 26;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1085, 789);
+            Controls.Add(labelTargetLand);
+            Controls.Add(inputTargetLand);
             Controls.Add(checkBoxPhase);
             Controls.Add(checkBoxRIAA);
             Controls.Add(buttonPlot);
@@ -570,5 +595,7 @@
         private Button buttonPlot;
         private CheckBox checkBoxRIAA;
         private CheckBox checkBoxPhase;
+        private Label labelTargetLand;
+        private TextBox inputTargetLand;
     }
 }

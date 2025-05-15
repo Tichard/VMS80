@@ -13,7 +13,7 @@ namespace VMS80
         private int groove_fullscale;
 
         private readonly float spin_speed;
-        private readonly int land;
+        private int m_target_land;
 
         private readonly string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
 
@@ -36,8 +36,8 @@ namespace VMS80
 
         public Simulator()
         {
-            vinyl_start = 10; // mm
-            vinyl_stop = 2; // mm
+            vinyl_start = 300; // mm
+            vinyl_stop = 150; // mm
 
             stylus_width = 70; // um
             stylus_angle = 45; // um
@@ -46,7 +46,7 @@ namespace VMS80
             groove_fullscale = (int)Math.Ceiling(Math.Cos(stylus_angle * Math.PI / 180.0) * (stylus_width)) - 1; // um
 
             spin_speed = (float)(100.0/180.0); // 33.3rpm in seconds
-            land = 10; // um
+            m_target_land = 20; // um
 
             read_config();
         }
@@ -127,9 +127,9 @@ namespace VMS80
                 // Compare previous inner and current outer groove to increase pitch if needed
                 // margin = (current outer) - (previous inner)
                 float margin = current_rev - prev_rev;
-                if (margin < land) // if next groove if too close to the prev
+                if (margin < m_target_land) // if next groove if too close to the prev
                 {
-                    current_pitch += (land - margin); // add what's missing
+                    current_pitch += (m_target_land - margin); // add what's missing
 
                     // interpolate if line from here to current_pitch is greater than actual target
                     if (current_pitch - (m_pitch[idx] + dy * m_samples_per_revolution) >= 0)
@@ -235,6 +235,14 @@ namespace VMS80
             // Ex : 33.33rpm => 0.03min/revolution = 1.8sec/revolution
             // -> each revolution lasts (1/spin_speed) seconds so has (a_samplerate / spin_speed) samples
             m_samples_per_revolution = (Int64)(a_samplerate / spin_speed) + 1;
+        }
+        public void set_target_land(int a_target_land)
+        {
+            m_target_land = a_target_land;
+        }
+        public int get_target_land()
+        {
+            return m_target_land;
         }
         public Int64 get_revolution_size()
         {

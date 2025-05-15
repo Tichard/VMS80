@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 
 namespace VMS80
@@ -38,6 +38,7 @@ namespace VMS80
             textBoxCompressorGain.Text = m_plugins.m_compressor.get_gain().ToString("0.00", CultureInfo.InvariantCulture);
 
             inputSineFreq.Text = 100.ToString(CultureInfo.InvariantCulture);  // Perfectly fitted groove
+            inputTargetLand.Text = m_simulator.get_target_land().ToString();
         }
 
         ~MainForm()
@@ -74,6 +75,7 @@ namespace VMS80
 
             // Simulate
             m_simulator.set_samplerate(the_samplerate);
+            m_simulator.set_target_land(int.Parse(inputTargetLand.Text, CultureInfo.InvariantCulture));
             m_simulator.process(the_data, the_nb_samples, the_nb_channels);
         }
 
@@ -128,10 +130,10 @@ namespace VMS80
 
             simulate();
 
-            textBoxMinLand.Text = m_simulator.get_minimal_land().ToString("0.00um");
-            textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%");
-            textBoxMinDepth.Text = m_simulator.get_minimal_depth().ToString("0.00um");
-            textBoxMaxDepth.Text = m_simulator.get_maximal_depth().ToString("0.00um");
+            textBoxMinLand.Text = m_simulator.get_minimal_land().ToString("0.0μm", CultureInfo.InvariantCulture);
+            textBoxSurfaceFilling.Text = m_simulator.get_surface_filling().ToString("0.00%", CultureInfo.InvariantCulture);
+            textBoxMinDepth.Text = m_simulator.get_minimal_depth().ToString("0.0μm", CultureInfo.InvariantCulture);
+            textBoxMaxDepth.Text = m_simulator.get_maximal_depth().ToString("0.0μm", CultureInfo.InvariantCulture);
 
             // Restore cursor
             Cursor.Current = Cursors.Default;
