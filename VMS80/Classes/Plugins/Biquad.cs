@@ -1,4 +1,3 @@
-﻿
 namespace VMS80.Plugin
 {
     internal class Biquad
@@ -106,12 +105,12 @@ namespace VMS80.Plugin
             w3 = 1.0 / (2 * Math.PI * 2122.0);
             w4 = 1.0 / (2 * Math.PI * 0.45 * a_samplerate); // additional frequency just before nyquist to smooth high-end
 
-            // Numerator: (s.w2 + 1)(s.w4 + 1) = p0.s^2 + p1.s + p2
+            // Denominator: (s.w2 + 1)(s.w4 + 1) = p0.s^2 + p1.s + p2
             p0 = (w2 * w4);
             p1 = (w2 + w4);
             p2 = 1.0;
 
-            // Denominator: (s.w1 + 1)(s.w3 + 1) = q0.s^2 + q1.s + q2
+            // Numerator: (s.w1 + 1)(s.w3 + 1) = q0.s^2 + q1.s + q2
             q0 = (w1 * w3);
             q1 = (w1 + w3);
             q2 = 1.0;

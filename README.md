@@ -21,7 +21,7 @@ This repository is a Visual Studio project of a Windows Form executable.
 ## Dependencies
 
 At this stage of the project, it needs to call an external Python script to use a dynamic plot of the polar vinyl render.
-This needs Python to be installed with matplotlib on the machine. 
+This requires Python to be installed with matplotlib on the machine. 
 
 ## Structure
 
