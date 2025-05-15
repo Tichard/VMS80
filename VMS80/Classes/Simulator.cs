@@ -105,14 +105,11 @@ namespace VMS80
             float r_stop = vinyl_stop * 1000;
 
             float current_pitch = 0;
-            float peak = 0;
-            float peak_pitch = 0;
-
-            Int64 idx = 0;
-            Int64 peak_idx = 1;
-
             float current_rev, prev_rev;
-            float delta, last_delta = 0;
+            double the_pitch = 0, dy = 0;
+
+            Int64 idx = 0, idx_reset = 0;
+
 
             while (((r_start - current_pitch) > r_stop) && (idx < a_nb_samples - 1))
             {
@@ -134,33 +131,19 @@ namespace VMS80
                 {
                     current_pitch += (land - margin); // add what's missing
 
-                    // interpolate if line from here to current_pitch will cross under peak
-                    float next_peak = ((current_pitch - m_pitch[idx]) / m_samples_per_revolution) * (peak_idx - idx) + m_pitch[idx];
-
-                    // Target peak if straight line doesn't go under peak_pitch
-                    if (next_peak >= peak_pitch)
+                    // interpolate if line from here to current_pitch is greater than actual target
+                    if (current_pitch - (m_pitch[idx] + dy * m_samples_per_revolution) >= 0)
                     {
-                        peak = current_pitch;
-                    }
-                    else
-                    {
-                        // continue in straight line to next peak
-                        delta = (peak - m_pitch[idx]) / (peak_idx - idx);
-                        // if derivative is bigger, overwrite pitch
-                        if (delta > last_delta)
-                        {
-                            Int64 end = Math.Min(peak_idx, a_nb_samples - 1);
-                            for (int i = 0; i <= (end - idx); ++i)
-                            {
-                                m_pitch[idx + i] = Math.Max(m_pitch[idx + i], m_pitch[idx] + i * delta);
-                            }
-                            last_delta = delta;
-                        }
+                        idx_reset = 2 * m_samples_per_revolution + idx + 1; // save the idx
                     }
 
-                    peak_pitch = current_pitch;
-                    peak_idx = idx + m_samples_per_revolution;
+                    dy = Math.Max(dy, (current_pitch - m_pitch[idx]) / m_samples_per_revolution);
 
+                }
+                if (idx > idx_reset)
+                {
+                    dy =  (current_pitch - m_pitch[idx]) / m_samples_per_revolution;
+                    idx_reset = m_samples_per_revolution + idx + 1; // keep at least that dy for the next revolution
                 }
                 if (m_samples_per_revolution + idx < a_nb_samples - 1)
                 {
@@ -168,9 +151,9 @@ namespace VMS80
                     m_raw[m_samples_per_revolution + idx] = current_pitch;
                 }
 
-                // Smooth the pitch control
-                delta = peak - m_pitch[idx];
-                m_pitch[idx + 1] = Math.Max(m_pitch[idx + 1], m_pitch[idx] + delta / (peak_idx - idx));
+                // Increment the pitch control
+                the_pitch += dy; // Cumulated value MUST be double precision
+                m_pitch[idx + 1] = (float)the_pitch;
 
                 ++idx;
             }
