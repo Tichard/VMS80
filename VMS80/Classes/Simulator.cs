@@ -43,7 +43,7 @@ namespace VMS80
             stylus_angle = 45; // um
 
             // Kissing groove best value to have 0-depth on out-of-phase 0dBFS signal
-            groove_fullscale = (int)Math.Ceiling(Math.Cos(stylus_angle * Math.PI / 180.0) * (stylus_width)) - 1; // um
+            groove_fullscale = (int)Math.Floor(Math.Cos(stylus_angle * Math.PI / 180.0) * stylus_width); // um
 
             spin_speed = (float)(100.0/180.0); // 33.3rpm in seconds
             m_target_land = 20; // um
@@ -107,6 +107,7 @@ namespace VMS80
             float current_pitch = 0;
             float current_rev, prev_rev;
             double the_pitch = 0, dy = 0;
+            double delta;
 
             Int64 idx = 0, idx_reset = 0;
 
@@ -151,9 +152,20 @@ namespace VMS80
                     m_raw[m_samples_per_revolution + idx] = current_pitch;
                 }
 
+                delta = m_pitch[idx + 1] - (the_pitch + dy);
+                // Smooth any cumulated errors causing large discontinuities in pitch
+                if (delta > 0.1)
+                {
+                    for (Int64 p = 1; p < m_samples_per_revolution; ++p)
+                    {
+                        m_pitch[idx - m_samples_per_revolution + p] += (float)(delta * ((double)p / m_samples_per_revolution));
+                    }
+                }
+
                 // Increment the pitch control
-                the_pitch += dy; // Cumulated value MUST be double precision
-                m_pitch[idx + 1] = (float)the_pitch;
+                // Use double precision and max value to reset cumulated rounding errors
+                the_pitch = Math.Max(m_pitch[idx + 1], the_pitch+dy);
+                m_pitch[idx + 1] = (float)(the_pitch);
 
                 ++idx;
             }
