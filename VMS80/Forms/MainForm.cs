@@ -82,7 +82,12 @@ namespace VMS80
         private void generate_sinewave(out float[] a_data, int a_nb_samples, int a_nb_channels, int a_samplerate)
         {
             a_data = new float[a_nb_samples * a_nb_channels];
-            float the_gen_frequency = float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
+            float the_gen_frequency = 100;
+            try
+            {
+                float.Parse(inputSineFreq.Text, CultureInfo.InvariantCulture);
+            }
+            catch { }
             float the_phase = checkBoxPhase.Checked ? -1 : 1;
             Debug.WriteLine("Generating " + the_gen_frequency + "Hz frequency");
 
@@ -170,37 +175,65 @@ namespace VMS80
 
         private void textBoxLowFreqMixerCutOffFrequency_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_low_freq_mixer.set_cutoff_frequency(int.Parse(textBoxLowFreqMixerCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_low_freq_mixer.set_cutoff_frequency(int.Parse(textBoxLowFreqMixerCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxLowFreqMixerCutOffGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_low_freq_mixer.set_gain(float.Parse(textBoxLowFreqMixerGain.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_low_freq_mixer.set_gain(float.Parse(textBoxLowFreqMixerGain.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxHiFreqLimiterCutOffFrequency_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_limiter.set_cutoff_frequency(int.Parse(textBoxHiFreqLimiterCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_hi_freq_limiter.set_cutoff_frequency(int.Parse(textBoxHiFreqLimiterCutOffFrequency.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxHiFreqLimiterThreshold_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_limiter.set_threshold(float.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_hi_freq_limiter.set_threshold(float.Parse(textBoxHiFreqLimiterThreshold.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxHiFreqLimiterGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_hi_freq_limiter.set_gain(float.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_hi_freq_limiter.set_gain(float.Parse(textBoxHiFreqLimiterGain.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxCompressorThreshold_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_compressor.set_threshold(float.Parse(textBoxCompressorThreshold.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_compressor.set_threshold(float.Parse(textBoxCompressorThreshold.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
 
         private void textBoxCompressorGain_TextChanged(object sender, EventArgs e)
         {
-            m_plugins.m_compressor.set_gain(float.Parse(textBoxCompressorGain.Text, CultureInfo.InvariantCulture));
+            try
+            {
+                m_plugins.m_compressor.set_gain(float.Parse(textBoxCompressorGain.Text, CultureInfo.InvariantCulture));
+            }
+            catch { }
         }
     }
 }
