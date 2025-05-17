@@ -18,6 +18,7 @@ namespace VMS80
         private readonly string WORKSPACE = "Z:\\git\\VMS80\\VMS80\\";
 
         // WORKING ENV
+        private Int64 m_nb_samples;
         private float[] m_groove = [];
         private float[] m_pitch = [];
         private float[] m_raw = [];
@@ -51,22 +52,20 @@ namespace VMS80
             read_config();
         }
 
-        public void process(float[] a_data, int a_nb_samples, int a_nb_channels)
+        public void process(float[] a_data, Int64 a_nb_samples, int a_nb_channels)
         {
-            m_groove = new float[2 * a_nb_samples];
-            m_pitch = new float[a_nb_samples];
-            m_raw = new float[a_nb_samples];
-            m_land = new float[a_nb_samples];
+            m_nb_samples = a_nb_samples;
+            m_groove = new float[2 * m_nb_samples];
+            m_pitch = new float[m_nb_samples];
+            m_raw = new float[m_nb_samples];
+            m_land = new float[m_nb_samples];
 
             compute_groove(a_data, a_nb_samples, a_nb_channels);
-            compute_pitch(a_nb_samples);
-            compute_land(a_nb_samples);
-
-            // Write data to file so python can plot it
-            export_results(a_data, a_nb_samples);
+            compute_pitch();
+            compute_land();
         }
 
-        private void compute_groove(float[] a_data, int a_nb_samples, int a_nb_channels)
+        private void compute_groove(float[] a_data, Int64 a_nb_samples, int a_nb_channels)
         {
             double stylus_radian = stylus_angle * Math.PI / 180.0;
             float modulation = (float)Math.Sin(stylus_radian) * groove_fullscale;
@@ -78,7 +77,7 @@ namespace VMS80
             if (a_nb_channels == 2)
             {
                 // compute inner/outer groove and depth from L/R
-                for (int i = 0; i < a_nb_samples; ++i)
+                for (Int64 i = 0; i < a_nb_samples; ++i)
                 {
                     m_groove[2 * i + 0] = a_data[2 * i + 0] * modulation - stylus_width / 2;
                     m_groove[2 * i + 1] = a_data[2 * i + 1] * modulation + stylus_width / 2;
@@ -91,7 +90,7 @@ namespace VMS80
             else
             {
                 // mono : constant centered width and depth
-                for (int i = 0; i < a_nb_samples; ++i)
+                for (Int64 i = 0; i < a_nb_samples; ++i)
                 {
                     m_groove[2 * i + 0] = a_data[i] * modulation - stylus_width / 2;
                     m_groove[2 * i + 1] = a_data[i] * modulation + stylus_width / 2;
@@ -99,7 +98,7 @@ namespace VMS80
             }
         }
 
-        private void compute_pitch(int a_nb_samples)
+        private void compute_pitch()
         {
             float r_start = vinyl_start * 1000;
             float r_stop = vinyl_stop * 1000;
@@ -111,10 +110,9 @@ namespace VMS80
 
             Int64 idx = 0, idx_reset = 0;
 
-
-            while (((r_start - current_pitch) > r_stop) && (idx < a_nb_samples - 1))
+            while (((r_start - current_pitch) > r_stop) && (idx < m_nb_samples - 1))
             {
-                if (m_samples_per_revolution + idx < a_nb_samples - 1)
+                if (m_samples_per_revolution + idx < m_nb_samples - 1)
                 {
                     current_rev = current_pitch + m_groove[2 * (m_samples_per_revolution + idx)];
                     prev_rev = m_pitch[idx] + m_groove[2 * idx + 1];
@@ -146,7 +144,7 @@ namespace VMS80
                     dy =  (current_pitch - m_pitch[idx]) / m_samples_per_revolution;
                     idx_reset = m_samples_per_revolution + idx + 1; // keep at least that dy for the next revolution
                 }
-                if (m_samples_per_revolution + idx < a_nb_samples - 1)
+                if (m_samples_per_revolution + idx < m_nb_samples - 1)
                 {
                     m_pitch[m_samples_per_revolution + idx] = current_pitch;
                     m_raw[m_samples_per_revolution + idx] = current_pitch;
@@ -172,18 +170,18 @@ namespace VMS80
             m_computed_samples = idx;
             m_computed_filling = (current_pitch / (r_start - r_stop));
 
-            if (m_computed_samples < a_nb_samples - 1)
+            if (m_computed_samples < m_nb_samples - 1)
             {
                 Debug.WriteLine("Not all sample fitted into the vinyl.\n");
             }
         }
 
-        private void compute_land(int a_nb_samples)
+        private void compute_land()
         {
             float r_start = vinyl_start * 1000;
             Int64 idx = 0;
 
-            Int64 window_len = Math.Min(m_computed_samples, a_nb_samples - m_samples_per_revolution);
+            Int64 window_len = Math.Min(m_computed_samples, m_nb_samples - m_samples_per_revolution);
 
             float current_pitch;
             float current_rev, prev_rev;
@@ -261,7 +259,7 @@ namespace VMS80
             return m_samples_per_revolution;
         }
 
-        private void export_results(float[] a_data, int a_nb_samples)
+        private void export_results()
         {
             float r_start = vinyl_start * 1000;
             //float current_inner, current_outer, prev_inner, prev_outer;
@@ -272,17 +270,16 @@ namespace VMS80
             // First line is initial revolution len
             outputFile.WriteLine(r_start + " " + m_samples_per_revolution);
 
-            for (Int64 idx = 0; idx < a_nb_samples; ++idx)
+            for (Int64 idx = 0; idx < m_nb_samples; ++idx)
             {
-                outputFile.WriteLine(a_data[2 * idx] + " " + a_data[2 * idx + 1] + " "
-                                    + m_pitch[idx] + " " + m_groove[2 * idx] + " " + m_groove[2 * idx + 1] + " "
+                outputFile.WriteLine(m_pitch[idx] + " " + m_groove[2 * idx] + " " + m_groove[2 * idx + 1] + " "
                                     + m_raw[idx] + " " + polar_idx + " " + m_land[idx]);
 
                 polar_idx += (float)(1.0 / m_samples_per_revolution) * (float)(2.0 * Math.PI);
 
             }
             /*
-            for (Int64 i = 0; i < a_nb_samples - m_samples_per_revolution; ++i)
+            for (Int64 i = 0; i < m_nb_samples - m_samples_per_revolution; ++i)
             {
                 prev_idx = i;
                 current_idx = i + m_samples_per_revolution;
@@ -295,8 +292,12 @@ namespace VMS80
             */
         }
 
-        public void render_vinyl_view() { 
-            // Execute Python script that will read the file
+        public void render_vinyl_view() {
+
+            // Write data to file so python can plot it
+            export_results();
+
+            // Execute Python script that will read the exported file
             Process python = new();
             python.StartInfo.FileName = @"python ";
             python.StartInfo.Arguments = WORKSPACE + "Python\\plot.py";

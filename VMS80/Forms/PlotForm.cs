@@ -95,7 +95,7 @@ namespace VMS80
         {
             Int64 revolution_size = m_simulator.get_revolution_size();
             Int64 data_size = revolution_size / (m_subsection_div * base_div);
-            Int64 data_index = data_size * m_subsection_index;
+            Int64 data_index = data_size * m_subsection_index + 1; // +1 for rounding
 
             if ((data_index < revolution_size) || (data_index + revolution_size + data_size > m_simulator.get_computed_samples()))
             {

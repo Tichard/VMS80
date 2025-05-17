@@ -8,7 +8,6 @@ DISPLAY_PITCH = 0
 DISPLAY_ERR = 0
 DISPLAY_POLAR = 1
 
-audio_array = []
 groove_array = []
 pitch_array = []
 raw_array = []
@@ -30,8 +29,6 @@ revolution_len = int(the_line[1]) + 1
 the_lines.pop(0)
 for the_line in the_lines:
 	the_line = the_line.replace(',','.').split(' ')
-	data_l = float(the_line[0])
-	data_r = float(the_line[1])
 	pitch = float(the_line[2])
 	outer = float(the_line[3])
 	inner = float(the_line[4])
@@ -42,7 +39,6 @@ for the_line in the_lines:
 	outer_groove = start - pitch - outer
 	inner_groove = start - pitch - inner
 
-	audio_array.append([data_l, data_r])
 	groove_array.append([outer_groove, inner_groove])
 	pitch_array.append(pitch)
 	raw_array.append(raw)
@@ -56,12 +52,8 @@ for the_line in the_lines:
 
 if DISPLAY_PITCH :
 	plt.figure(1)
-	plt.subplot(2,1,1),
 	plt.plot(raw_array)
 	plt.plot(pitch_array)
-
-	plt.subplot(2,1,2),
-	plt.plot(audio_array)
 
 if DISPLAY_ERR :
 	plt.figure(2)
@@ -78,5 +70,3 @@ if DISPLAY_POLAR :
 	plt.plot(outer_x_array, outer_y_array)
 
 plt.show()
-
-print("DONE")
